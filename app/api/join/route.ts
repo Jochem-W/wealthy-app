@@ -9,7 +9,7 @@ const rest = new REST({ version: "10" }).setToken(
   process.env["DISCORD_BOT_TOKEN"] as string
 )
 const prisma = new PrismaClient()
-const guildId = process.env["guildId"] as string
+const guildId = process.env["GUILD_ID"] as string
 
 async function kickOld(inviter: string, session: Session) {
   const user = await prisma.user.findFirstOrThrow({
