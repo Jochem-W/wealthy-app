@@ -11,25 +11,41 @@ const rest = new REST({ version: "10" }).setToken(
 const prisma = new PrismaClient()
 const guildId = process.env["GUILD_ID"] as string
 
-async function kickOld(inviter: string, session: Session) {
+async function transferInvite(inviter: string, session: Session) {
   const user = await prisma.user.findFirstOrThrow({
     where: { discordId: inviter },
     include: { invitee: true },
   })
 
+  // Member has a spare invite
   if (!user.invitee) {
+    const invitee = await prisma.invitee.findFirst({
+      where: { discordId: session.user.id },
+    })
+
+    // User has already been invited
+    if (invitee) {
+      return
+    }
+
+    // User hasn't been invited yet
+    await prisma.invitee.create({
+      data: {
+        discordId: session.user.id,
+        user: { connect: { discordId: inviter } },
+      },
+    })
     return
   }
 
+  // Member already invited the user
   if (user.invitee.discordId === session.user.id) {
     return
   }
 
+  // Member invited a different user first
   await rest.delete(Routes.guildMember(guildId, user.invitee.discordId))
   await prisma.invitee.delete({ where: { discordId: user.invitee.discordId } })
-}
-
-async function writeNew(inviter: string, session: Session) {
   await prisma.invitee.create({
     data: {
       discordId: session.user.id,
@@ -52,8 +68,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    await kickOld(inviter, session)
-    await writeNew(inviter, session)
+    await transferInvite(inviter, session)
   } catch (e) {
     console.log(e)
     return new Response("Couldn't transfer invite", { status: 500 })
