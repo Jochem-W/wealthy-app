@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get -y install build-essential openssl python3 && \
     rm -rf /var/lib/apt/lists/* && \
     npm install -g pnpm && \
-    pnpm install
+    NODE_ENV=development pnpm install
 
 # Copy all files to working directory
 COPY . .
