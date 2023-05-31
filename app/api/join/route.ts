@@ -43,12 +43,12 @@ export async function GET(request: Request) {
   const token = url.searchParams.get("token")
   const inviter = await getInviter(token)
   if (!inviter) {
-    return new Response(null, { status: 403, statusText: "Invalid token" })
+    return new Response("Invalid token", { status: 403 })
   }
 
   const session = await getServerSession(Options)
   if (!session?.user) {
-    return new Response(null, { status: 403, statusText: "Invalid session" })
+    return new Response("Invalid session", { status: 403 })
   }
 
   try {
@@ -56,10 +56,7 @@ export async function GET(request: Request) {
     await writeNew(inviter, session)
   } catch (e) {
     console.log(e)
-    return new Response(null, {
-      status: 500,
-      statusText: "Couldn't transfer invite",
-    })
+    return new Response("Couldn't transfer invite", { status: 500 })
   }
 
   const response = (await rest.put(
@@ -69,5 +66,5 @@ export async function GET(request: Request) {
     }
   )) as RESTPutAPIGuildMemberResult
 
-  return new Response(null, { status: 200 })
+  return new Response("Server joined!", { status: 200 })
 }

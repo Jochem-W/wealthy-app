@@ -14,13 +14,12 @@ export const JoinServerButton = () => {
         setDisabled(true)
         setText("Joining server...")
         const response = await fetch(`/api/join?token=${params.get("token")}`)
+        setText(await response.text())
         if (response.ok) {
-          setText("Server joined!")
           return
         }
 
         setDisabled(false)
-        setText(response.statusText)
       }}
       className={`p-4 text-2xl rounded-2xl transition-colors transition-opacity border border-black bg-neutral-100  dark:bg-neutral-900  dark:border-white ${
         disabled
