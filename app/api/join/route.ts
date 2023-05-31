@@ -55,6 +55,7 @@ export async function GET(request: Request) {
     await kickOld(inviter, session)
     await writeNew(inviter, session)
   } catch (e) {
+    console.log(e)
     return new Response(null, {
       status: 500,
       statusText: "Couldn't transfer invite",
