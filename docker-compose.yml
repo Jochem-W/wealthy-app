@@ -5,10 +5,10 @@ services:
     restart: unless-stopped
     networks:
       - ubuntu_caddy
-      - ubuntu_wealthy
+      - wealthy-bot_wealthy
 
 networks:
   ubuntu_caddy:
     external: true
-  ubuntu_wealthy:
+  wealthy-bot_wealthy:
     external: true
