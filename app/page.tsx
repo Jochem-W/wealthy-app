@@ -19,14 +19,6 @@ export default async function Home({
 }) {
   const session = await getServerSession(Options)
 
-  console.log(
-    await new SignJWT({ sub: "869602709920174110" })
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setExpirationTime("24h")
-      .sign(key)
-  )
-
   if (session === null || !session.user) {
     return (
       <Container>

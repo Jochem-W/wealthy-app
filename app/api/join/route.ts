@@ -11,7 +11,7 @@ const rest = new REST({ version: "10" }).setToken(
   process.env["DISCORD_BOT_TOKEN"] as string
 )
 const prisma = new PrismaClient()
-const guildId = "1100472464867340391"
+const guildId = process.env["guildId"] as string
 
 const getInviter = async (token: unknown) => {
   if (typeof token !== "string") {
