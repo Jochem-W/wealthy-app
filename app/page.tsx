@@ -23,7 +23,7 @@ export default async function Home({
     return (
       <Container>
         <p className={"max-w-[75ch]"}>
-          You've been invited to join Lemon's exclusive Ko-fi server:
+          You&apos;ve been invited to join Lemon&apos;s exclusive Ko-fi server:
           Suspiciously Wealthy Furries! Please click the button below to sign in
           using Discord and join the server.
         </p>
