@@ -4,9 +4,11 @@ services:
     build: .
     restart: unless-stopped
     networks:
-      - default
       - ubuntu_caddy
+      - ubuntu_wealthy
 
 networks:
   ubuntu_caddy:
+    external: true
+  ubuntu_wealthy:
     external: true
