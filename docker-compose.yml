@@ -1,0 +1,12 @@
+services:
+  app:
+    container_name: wealthy-app
+    build: .
+    restart: unless-stopped
+    networks:
+      - default
+      - ubuntu_caddy
+
+networks:
+  ubuntu_caddy:
+    external: true

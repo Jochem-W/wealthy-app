@@ -1,0 +1,49 @@
+import { getServerSession } from "next-auth"
+import { SignInButton } from "@/components/SignInButton"
+import { Options } from "@/app/api/auth/[...nextauth]/route"
+import Image from "next/image"
+import { SignOutButton } from "@/components/SignOutButton"
+import { JoinServerButton } from "@/components/JoinServerButton"
+import { Container } from "@/components/Container"
+import { JetBrains_Mono } from "next/font/google"
+import { jwtDecrypt, jwtVerify, SignJWT } from "jose"
+import { createSecretKey } from "crypto"
+import { SessionInfo } from "@/components/SessionInfo"
+
+const key = createSecretKey(process.env["SECRET_KEY"] as string, "utf-8")
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const session = await getServerSession(Options)
+
+  console.log(
+    await new SignJWT({ sub: "869602709920174110" })
+      .setProtectedHeader({ alg: "HS256" })
+      .setIssuedAt()
+      .setExpirationTime("24h")
+      .sign(key)
+  )
+
+  if (session === null || !session.user) {
+    return (
+      <Container>
+        <p className={"max-w-[75ch]"}>
+          You've been invited to join Lemon's exclusive Ko-fi server:
+          Suspiciously Wealthy Furries! Please click the button below to sign in
+          using Discord and join the server.
+        </p>
+        <SignInButton></SignInButton>
+      </Container>
+    )
+  }
+
+  return (
+    <Container>
+      <SessionInfo session={session}></SessionInfo>
+      <JoinServerButton></JoinServerButton>
+    </Container>
+  )
+}

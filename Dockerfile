@@ -1,0 +1,39 @@
+# Set-up build image
+FROM node:20-slim AS builder
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+# Copy package.json, lockfile, .npmrc and prisma
+COPY ["pnpm-lock.yaml", "package.json", ".npmrc", "prisma", "./"]
+
+# Install build tools
+RUN apt-get update && \
+    apt-get -y install build-essential openssl python3 && \
+    rm -rf /var/lib/apt/lists/* && \
+    npm install -g pnpm && \
+    pnpm install
+
+# Copy all files to working directory
+COPY . .
+
+# Build Next app and remove dev packages
+RUN pnpm prisma generate && \
+    pnpm build && \
+    pnpm prune --prod
+
+# Set-up running image
+FROM node:20-slim
+ENV NODE_ENV=production
+WORKDIR /app
+
+# Install openssl
+RUN apt-get update && \
+    apt-get -y install openssl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy all files (including source :/)
+COPY --from=builder /app .
+
+# Run
+CMD ["npm", "start"]
