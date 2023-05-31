@@ -9,6 +9,7 @@ import { JetBrains_Mono } from "next/font/google"
 import { jwtDecrypt, jwtVerify, SignJWT } from "jose"
 import { createSecretKey } from "crypto"
 import { SessionInfo } from "@/components/SessionInfo"
+import { getInviter } from "@/utils/token"
 
 const key = createSecretKey(process.env["SECRET_KEY"] as string, "utf-8")
 
@@ -17,6 +18,15 @@ export default async function Home({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) {
+  const token = searchParams["token"]
+  if (!(await getInviter(searchParams["token"]))) {
+    return (
+      <Container>
+        <p>Invalid token</p>
+      </Container>
+    )
+  }
+
   const session = await getServerSession(Options)
 
   if (session === null || !session.user) {

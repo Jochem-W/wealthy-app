@@ -2,36 +2,14 @@ import { REST } from "@discordjs/rest"
 import { RESTPutAPIGuildMemberResult, Routes } from "discord-api-types/v10"
 import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
-import { createSecretKey } from "crypto"
-import { jwtVerify } from "jose"
 import { PrismaClient } from "@prisma/client"
+import { getInviter } from "@/utils/token"
 
-const key = createSecretKey(process.env["SECRET_KEY"] as string, "utf-8")
 const rest = new REST({ version: "10" }).setToken(
   process.env["DISCORD_BOT_TOKEN"] as string
 )
 const prisma = new PrismaClient()
 const guildId = process.env["guildId"] as string
-
-const getInviter = async (token: unknown) => {
-  if (typeof token !== "string") {
-    return null
-  }
-
-  let payload
-  try {
-    const result = await jwtVerify(token, key)
-    payload = result.payload
-  } catch (e) {
-    return null
-  }
-
-  if (!payload.sub) {
-    return null
-  }
-
-  return payload.sub
-}
 
 async function kickOld(inviter: string, session: Session) {
   const user = await prisma.user.findFirstOrThrow({
