@@ -66,7 +66,7 @@ export default async function Home({
   return (
     <Container>
       <SessionInfo session={session}></SessionInfo>
-      <JoinServerButton joined={await checkMember()}></JoinServerButton>
+      <JoinServerButton joined={await checkMember(session)}></JoinServerButton>
     </Container>
   )
 }

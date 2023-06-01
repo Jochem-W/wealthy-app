@@ -1,4 +1,4 @@
-import { getServerSession } from "next-auth"
+import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { Routes } from "discord-api-types/v10"
 import { Variables } from "@/utils/variables"
@@ -8,8 +8,8 @@ export const Discord = new REST({ version: "10" }).setToken(
   Variables.discordBotToken
 )
 
-export async function checkMember() {
-  const session = await getServerSession(Options)
+export async function checkMember(existingSession?: Session) {
+  const session = existingSession ?? (await getServerSession(Options))
   if (!session?.user) {
     return false
   }
