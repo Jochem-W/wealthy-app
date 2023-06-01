@@ -1,12 +1,7 @@
-import "./globals.css"
+import "@/app/globals.css"
 import { Inter } from "next/font/google"
-import { Metadata } from "next"
 
 const inter = Inter({ subsets: ["latin"] })
-
-export const metadata: Metadata = {
-  title: "Suspiciously Wealthy Furries",
-}
 
 // eslint-disable-next-line react/function-component-definition
 export default function RootLayout({
@@ -17,9 +12,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} flex flex-col items-center justify-between min-h-[100svh]`}
+        className={`${inter.className} flex flex-col items-center gap-2 justify-between min-h-[100svh] p-4`}
       >
-        <header></header>
+        <div></div>
         {children}
         <footer></footer>
       </body>
