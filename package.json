@@ -89,6 +89,7 @@
       "react/jsx-sort-props": "off",
       "react/self-closing-comp": "off",
       "react/forbid-component-props": "off",
+      "react/jsx-max-depth": "off",
       "react/function-component-definition": [
         2,
         {
