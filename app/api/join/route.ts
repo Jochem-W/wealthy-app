@@ -5,6 +5,7 @@ import { getInviter } from "@/utils/token"
 import { Variables } from "@/utils/variables"
 import { Prisma } from "@/utils/clients"
 import { checkMember, Discord } from "@/utils/discord"
+import { DateTime } from "luxon"
 
 async function transferInvite(inviter: string, session: Session) {
   const invitee = await Prisma.invitee.findFirst({
@@ -33,9 +34,21 @@ async function transferInvite(inviter: string, session: Session) {
   }
 
   // Member invited a different user first
-  await Discord.delete(
-    Routes.guildMember(Variables.guildId, member.invitee.discordId)
-  )
+  const toKick = await Prisma.user.findFirst({
+    where: {
+      discordId: member.invitee.discordId,
+      lastPaymentTime: {
+        gte: DateTime.now()
+          .minus({ days: 30 + Variables.gracePeriod })
+          .toJSDate(),
+      },
+    },
+  })
+  if (!toKick) {
+    await Discord.delete(
+      Routes.guildMember(Variables.guildId, member.invitee.discordId)
+    )
+  }
   await Prisma.invitee.delete({
     where: { discordId: member.invitee.discordId },
   })

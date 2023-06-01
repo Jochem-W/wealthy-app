@@ -8,6 +8,7 @@ const model = z
     CLIENT_SECRET: z.string(),
     DISCORD_BOT_TOKEN: z.string(),
     GUILD_ID: z.string(),
+    GRACE_PERIOD: z.coerce.number(),
   })
   .transform((arg) => camelcaseKeys(arg))
 
