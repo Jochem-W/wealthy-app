@@ -1,7 +1,8 @@
 import { jwtVerify } from "jose"
 import { createSecretKey } from "crypto"
+import { Variables } from "@/utils/variables"
 
-const key = createSecretKey(process.env["SECRET_KEY"] as string, "utf-8")
+const key = createSecretKey(Variables.secretKey, "utf-8")
 
 export const getInviter = async (token: unknown) => {
   if (typeof token !== "string") {

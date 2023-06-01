@@ -4,12 +4,11 @@ import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { PrismaClient } from "@prisma/client"
 import { getInviter } from "@/utils/token"
+import { Variables } from "@/utils/variables"
 
-const rest = new REST({ version: "10" }).setToken(
-  process.env["DISCORD_BOT_TOKEN"] as string
-)
+const rest = new REST({ version: "10" }).setToken(Variables.discordBotToken)
 const prisma = new PrismaClient()
-const guildId = process.env["GUILD_ID"] as string
+const guildId = Variables.guildId
 
 async function transferInvite(inviter: string, session: Session) {
   const user = await prisma.user.findFirstOrThrow({

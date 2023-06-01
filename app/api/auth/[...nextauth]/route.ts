@@ -1,5 +1,6 @@
 import NextAuth, { AuthOptions } from "next-auth"
 import Discord from "next-auth/providers/discord"
+import { Variables } from "@/utils/variables"
 
 export const Options: AuthOptions = {
   callbacks: {
@@ -32,8 +33,8 @@ export const Options: AuthOptions = {
           scope: "guilds.join identify",
         },
       },
-      clientId: process.env["CLIENT_ID"] as string,
-      clientSecret: process.env["CLIENT_SECRET"] as string,
+      clientId: Variables.clientId,
+      clientSecret: Variables.clientSecret,
     }),
   ],
   session: { strategy: "jwt" },

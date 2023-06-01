@@ -11,8 +11,6 @@ import { createSecretKey } from "crypto"
 import { SessionInfo } from "@/components/SessionInfo"
 import { getInviter } from "@/utils/token"
 
-const key = createSecretKey(process.env["SECRET_KEY"] as string, "utf-8")
-
 export default async function Home({
   searchParams,
 }: {
