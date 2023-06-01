@@ -18,7 +18,7 @@ export default function Page() {
       <main className={"max-w-[75ch] flex flex-col gap-4"}>
         <div className={"flex flex-col gap-1"}>
           <p>
-            I only purposefully store information that I need to provide my
+            I manually store only the information that I need to provide my
             services. This may include, but isn&apos;t limited to:
           </p>
           <ul className={"list-disc ml-5"}>
