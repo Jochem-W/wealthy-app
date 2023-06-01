@@ -4,9 +4,10 @@ import { Routes } from "discord-api-types/v10"
 import { Variables } from "@/utils/variables"
 import { REST } from "@discordjs/rest"
 
-export const Discord = new REST({ version: "10" }).setToken(
-  Variables.discordBotToken
-)
+const globalForDiscord = global as unknown as { discord: REST | undefined }
+export const Discord =
+  globalForDiscord.discord ??
+  new REST({ version: "10" }).setToken(Variables.discordBotToken)
 
 export async function checkMember(existingSession?: Session) {
   const session = existingSession ?? (await getServerSession(Options))
@@ -21,4 +22,8 @@ export async function checkMember(existingSession?: Session) {
   }
 
   return true
+}
+
+if (process.env.NODE_ENV !== "production") {
+  globalForDiscord.discord = Discord
 }

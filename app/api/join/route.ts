@@ -4,10 +4,7 @@ import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { getInviter } from "@/utils/token"
 import { Variables } from "@/utils/variables"
 import { Prisma } from "@/utils/clients"
-import { REST } from "@discordjs/rest"
-import { checkMember } from "@/utils/discord"
-
-const discord = new REST({ version: "10" }).setToken(Variables.discordBotToken)
+import { checkMember, Discord } from "@/utils/discord"
 
 async function transferInvite(inviter: string, session: Session) {
   const invitee = await Prisma.invitee.findFirst({
@@ -36,7 +33,7 @@ async function transferInvite(inviter: string, session: Session) {
   }
 
   // Member invited a different user first
-  await discord.delete(
+  await Discord.delete(
     Routes.guildMember(Variables.guildId, member.invitee.discordId)
   )
   await Prisma.invitee.delete({
@@ -74,7 +71,7 @@ export async function POST(request: Request) {
     return new Response("Couldn't transfer invite", { status: 500 })
   }
 
-  await discord.put(Routes.guildMember(Variables.guildId, session.user.id), {
+  await Discord.put(Routes.guildMember(Variables.guildId, session.user.id), {
     body: { access_token: session.user.accessToken },
   })
 
