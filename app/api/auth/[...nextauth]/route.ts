@@ -4,25 +4,29 @@ import { Variables } from "@/utils/variables"
 
 export const Options: AuthOptions = {
   callbacks: {
-    async jwt({ token, account, profile }) {
+    jwt({ token, account, profile }) {
       if (profile) {
         console.log(profile)
         token.id = profile.id
         token.discriminator = profile.discriminator
       }
 
-      if (account && account.access_token) {
+      if (account?.access_token) {
         token.accessToken = account.access_token
       }
 
       return token
     },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id
-        session.user.discriminator = token.discriminator
-        session.user.accessToken = token.accessToken
+    session({ session, token }) {
+      if (!session.user) {
+        console.log("SDFSDFSDFSD\nSDFSDFSDFSD\nSDFSDFSDFSD\nSDFSDFSDFSD\n")
+        return session
       }
+
+      session.user.id = token.id
+      session.user.discriminator = token.discriminator
+      session.user.accessToken = token.accessToken
+
       return session
     },
   },
@@ -40,6 +44,6 @@ export const Options: AuthOptions = {
   session: { strategy: "jwt" },
 }
 
-const handler = NextAuth(Options)
+const handler = NextAuth(Options) as unknown
 
 export { handler as GET, handler as POST }

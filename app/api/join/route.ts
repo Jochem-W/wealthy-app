@@ -73,13 +73,6 @@ export async function GET(request: Request) {
     return new Response("Couldn't transfer invite", { status: 500 })
   }
 
-  // const response = (await rest.put(
-  //   Routes.guildMember(guildId, session.user.id),
-  //   {
-  //     body: { access_token: session.user.accessToken },
-  //   }
-  // )) as RESTPutAPIGuildMemberResult
-
   await rest.put(Routes.guildMember(guildId, session.user.id), {
     body: { access_token: session.user.accessToken },
   })

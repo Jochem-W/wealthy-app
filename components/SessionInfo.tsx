@@ -5,7 +5,7 @@ import { JetBrains_Mono } from "next/font/google"
 
 const mono = JetBrains_Mono({ subsets: ["latin"] })
 
-export const SessionInfo = ({ session }: { session: Session }) => {
+export function SessionInfo({ session }: { session: Session }) {
   return (
     <div
       className={
@@ -13,13 +13,14 @@ export const SessionInfo = ({ session }: { session: Session }) => {
         // " border border-black bg-neutral-100 dark:border-white dark:bg-neutral-900"
       }
     >
-      <Image
-        src={session.user?.image ?? ""}
-        alt={"Discord Avatar"}
-        width={64}
-        height={64}
-        className={"rounded-full"}
-      ></Image>
+      <div className="rounded-full">
+        <Image
+          src={session.user.image}
+          alt={"Discord Avatar"}
+          width={64}
+          height={64}
+        />
+      </div>
       <h2 className={"text-2xl"}>
         Signed in as{" "}
         <span className={mono.className}>

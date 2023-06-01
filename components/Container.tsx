@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 
-export const Container = ({ children }: PropsWithChildren) => {
+export function Container({ children }: PropsWithChildren) {
   return (
     <main
       className={

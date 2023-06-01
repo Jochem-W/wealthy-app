@@ -9,7 +9,7 @@ import { getInviter } from "@/utils/token"
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: Record<string, string | string[] | undefined>
 }) {
   if (!(await getInviter(searchParams["token"]))) {
     return (
@@ -21,7 +21,7 @@ export default async function Home({
 
   const session = await getServerSession(Options)
 
-  if (session === null || !session.user) {
+  if (session === null) {
     return (
       <Container>
         <p className={"max-w-[75ch]"}>

@@ -2,11 +2,16 @@
 
 import { signOut } from "next-auth/react"
 
-export const SignOutButton = () => {
+function onClick() {
+  void signOut()
+}
+
+export function SignOutButton() {
   return (
     <button
       className={"underline hover:text-blue-600 transition-colors"}
-      onClick={() => signOut()}
+      onClick={onClick}
+      type={"button"}
     >
       Sign out
     </button>
