@@ -3,10 +3,10 @@
 import { useCallback, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
-export const JoinServerButton = () => {
+export const JoinServerButton = ({ joined }: { joined: boolean }) => {
   const params = useSearchParams()
-  const [disabled, setDisabled] = useState<boolean>(false)
-  const [text, setText] = useState("Join server")
+  const [disabled, setDisabled] = useState<boolean>(joined)
+  const [text, setText] = useState(joined ? "Server joined!" : "Join server")
 
   const onClick = useCallback(() => {
     void (async () => {

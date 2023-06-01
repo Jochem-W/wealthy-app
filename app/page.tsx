@@ -5,6 +5,7 @@ import { JoinServerButton } from "@/components/JoinServerButton"
 import { Container } from "@/components/Container"
 import { SessionInfo } from "@/components/SessionInfo"
 import { getInviter } from "@/utils/token"
+import { checkMember } from "@/utils/discord"
 
 export default async function Home({
   searchParams,
@@ -37,7 +38,7 @@ export default async function Home({
   return (
     <Container>
       <SessionInfo session={session}></SessionInfo>
-      <JoinServerButton></JoinServerButton>
+      <JoinServerButton joined={await checkMember()}></JoinServerButton>
     </Container>
   )
 }

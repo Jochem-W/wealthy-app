@@ -1,24 +1,23 @@
-import { REST } from "@discordjs/rest"
 import { Routes } from "discord-api-types/v10"
 import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
-import { PrismaClient } from "@prisma/client"
 import { getInviter } from "@/utils/token"
 import { Variables } from "@/utils/variables"
+import { Prisma } from "@/utils/clients"
+import { REST } from "@discordjs/rest"
+import { checkMember } from "@/utils/discord"
 
-const rest = new REST({ version: "10" }).setToken(Variables.discordBotToken)
-const prisma = new PrismaClient()
-const {guildId} = Variables
+const discord = new REST({ version: "10" }).setToken(Variables.discordBotToken)
 
 async function transferInvite(inviter: string, session: Session) {
-  const user = await prisma.user.findFirstOrThrow({
+  const user = await Prisma.user.findFirstOrThrow({
     where: { discordId: inviter },
     include: { invitee: true },
   })
 
   // Member has a spare invite
   if (!user.invitee) {
-    const invitee = await prisma.invitee.findFirst({
+    const invitee = await Prisma.invitee.findFirst({
       where: { discordId: session.user.id },
     })
 
@@ -28,7 +27,7 @@ async function transferInvite(inviter: string, session: Session) {
     }
 
     // User hasn't been invited yet
-    await prisma.invitee.create({
+    await Prisma.invitee.create({
       data: {
         discordId: session.user.id,
         user: { connect: { discordId: inviter } },
@@ -43,9 +42,11 @@ async function transferInvite(inviter: string, session: Session) {
   }
 
   // Member invited a different user first
-  await rest.delete(Routes.guildMember(guildId, user.invitee.discordId))
-  await prisma.invitee.delete({ where: { discordId: user.invitee.discordId } })
-  await prisma.invitee.create({
+  await discord.delete(
+    Routes.guildMember(Variables.guildId, user.invitee.discordId)
+  )
+  await Prisma.invitee.delete({ where: { discordId: user.invitee.discordId } })
+  await Prisma.invitee.create({
     data: {
       discordId: session.user.id,
       user: { connect: { discordId: inviter } },
@@ -61,6 +62,10 @@ export async function GET(request: Request) {
     return new Response("Invalid token", { status: 403 })
   }
 
+  if (await checkMember()) {
+    return new Response("Server joined!", { status: 200 })
+  }
+
   const session = await getServerSession(Options)
   if (!session?.user) {
     return new Response("Invalid session", { status: 403 })
@@ -73,7 +78,7 @@ export async function GET(request: Request) {
     return new Response("Couldn't transfer invite", { status: 500 })
   }
 
-  await rest.put(Routes.guildMember(guildId, session.user.id), {
+  await discord.put(Routes.guildMember(Variables.guildId, session.user.id), {
     body: { access_token: session.user.accessToken },
   })
 
