@@ -6,7 +6,6 @@ export const Options: AuthOptions = {
   callbacks: {
     jwt({ token, account, profile }) {
       if (profile) {
-        console.log(profile)
         token.id = profile.id
         token.discriminator = profile.discriminator
       }
@@ -18,11 +17,6 @@ export const Options: AuthOptions = {
       return token
     },
     session({ session, token }) {
-      if (!session.user) {
-        console.log("SDFSDFSDFSD\nSDFSDFSDFSD\nSDFSDFSDFSD\nSDFSDFSDFSD\n")
-        return session
-      }
-
       session.user.id = token.id
       session.user.discriminator = token.discriminator
       session.user.accessToken = token.accessToken
