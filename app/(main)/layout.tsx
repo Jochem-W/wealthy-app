@@ -23,6 +23,8 @@ export default function RootLayout({
         <header></header>
         {children}
         <footer className={"flex gap-2"}>
+          <span>Made by Lucas</span>
+          <span>•</span>
           <Link
             href={"/privacy"}
             className={"underline hover:text-blue-500 transition-colors"}
