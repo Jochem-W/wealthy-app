@@ -4,7 +4,7 @@ import { Variables } from "@/utils/variables"
 
 export const Options: AuthOptions = {
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, account, profile }) {
       if (profile) {
         console.log(profile)
         token.id = profile.id

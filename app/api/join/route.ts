@@ -1,5 +1,5 @@
 import { REST } from "@discordjs/rest"
-import { RESTPutAPIGuildMemberResult, Routes } from "discord-api-types/v10"
+import { Routes } from "discord-api-types/v10"
 import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { PrismaClient } from "@prisma/client"
@@ -73,12 +73,16 @@ export async function GET(request: Request) {
     return new Response("Couldn't transfer invite", { status: 500 })
   }
 
-  const response = (await rest.put(
-    Routes.guildMember(guildId, session.user.id),
-    {
-      body: { access_token: session.user.accessToken },
-    }
-  )) as RESTPutAPIGuildMemberResult
+  // const response = (await rest.put(
+  //   Routes.guildMember(guildId, session.user.id),
+  //   {
+  //     body: { access_token: session.user.accessToken },
+  //   }
+  // )) as RESTPutAPIGuildMemberResult
+
+  await rest.put(Routes.guildMember(guildId, session.user.id), {
+    body: { access_token: session.user.accessToken },
+  })
 
   return new Response("Server joined!", { status: 200 })
 }
