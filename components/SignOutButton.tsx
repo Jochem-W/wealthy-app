@@ -6,8 +6,7 @@ function onClick() {
   void signOut()
 }
 
-export function SignOutButton() {
-  return (
+export const SignOutButton = () => (
     <button
       className={"underline hover:text-blue-600 transition-colors"}
       onClick={onClick}
@@ -16,4 +15,3 @@ export function SignOutButton() {
       Sign out
     </button>
   )
-}

@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react"
 
-export function Container({ children }: PropsWithChildren) {
-  return (
+export const Container = ({ children }: PropsWithChildren) => (
     <main
       className={
         "flex flex-col items-center w-fit rounded-2xl p-4 gap-8 justify-center text-center"
@@ -13,4 +12,3 @@ export function Container({ children }: PropsWithChildren) {
       {children}
     </main>
   )
-}

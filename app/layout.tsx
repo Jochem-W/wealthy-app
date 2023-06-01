@@ -3,6 +3,7 @@ import { Inter } from "next/font/google"
 
 const inter = Inter({ subsets: ["latin"] })
 
+// eslint-disable-next-line react/function-component-definition
 export default function RootLayout({
   children,
 }: {

@@ -3,21 +3,25 @@
 import { useCallback, useState } from "react"
 import { useSearchParams } from "next/navigation"
 
-export function JoinServerButton() {
+export const JoinServerButton = () => {
   const params = useSearchParams()
   const [disabled, setDisabled] = useState<boolean>(false)
   const [text, setText] = useState("Join server")
 
-  const onClick = useCallback(async () => {
-    setDisabled(true)
-    setText("Joining server...")
-    const response = await fetch(`/api/join?token=${params.get("token") ?? ""}`)
-    setText(await response.text())
-    if (response.ok) {
-      return
-    }
+  const onClick = useCallback(() => {
+    void (async () => {
+      setDisabled(true)
+      setText("Joining server...")
+      const response = await fetch(
+        `/api/join?token=${params.get("token") ?? ""}`
+      )
+      setText(await response.text())
+      if (response.ok) {
+        return
+      }
 
-    setDisabled(false)
+      setDisabled(false)
+    })()
   }, [setText, setDisabled, params])
 
   return (
@@ -28,7 +32,7 @@ export function JoinServerButton() {
           : "hover:bg-neutral-200 dark:hover:bg-neutral-800"
       }`}
       disabled={disabled}
-      onClick={void onClick}
+      onClick={onClick}
       type={"button"}
     >
       {text}

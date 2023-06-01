@@ -8,7 +8,7 @@ import { Variables } from "@/utils/variables"
 
 const rest = new REST({ version: "10" }).setToken(Variables.discordBotToken)
 const prisma = new PrismaClient()
-const guildId = Variables.guildId
+const {guildId} = Variables
 
 async function transferInvite(inviter: string, session: Session) {
   const user = await prisma.user.findFirstOrThrow({

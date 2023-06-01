@@ -51,7 +51,7 @@
     "extends": [
       "plugin:react/all",
       "plugin:react-hooks/recommended",
-      "eslint:recommended",
+      "eslint:all",
       "next/core-web-vitals",
       "plugin:@typescript-eslint/recommended",
       "plugin:@typescript-eslint/recommended-requiring-type-checking",
@@ -64,11 +64,26 @@
         "warn",
         "type"
       ],
+      "func-style": "off",
+      "no-void": [2, {
+        "allowAsStatement": true
+      }],
+      "sort-imports": "off",
+      "one-var": "off",
+      "max-statements": "off",
+      "no-console": "off",
+      "no-ternary": "off",
+      "camelcase": "off",
+      "new-cap": "off",
+      "id-length": "off",
+      "sort-keys": "off",
       "react/jsx-filename-extension": "off",
       "react/jsx-no-literals": "off",
       "react/jsx-curly-brace-presence": "off",
       "react/jsx-sort-props": "off",
-      "react/self-closing-comp": "off"
+      "react/self-closing-comp": "off",
+      "react/forbid-component-props": "off",
+      "react/function-component-definition": [2, { "namedComponents": "arrow-function" }]
     },
     "parser": "@typescript-eslint/parser",
     "plugins": [
