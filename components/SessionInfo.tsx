@@ -7,12 +7,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"] })
 
 export function SessionInfo({ session }: { session: Session }) {
   return (
-    <div
-      className={
-        "flex flex-col items-center p-2 rounded-2xl w-full"
-        // " border border-black bg-neutral-100 dark:border-white dark:bg-neutral-900"
-      }
-    >
+    <div className={"flex flex-col items-center p-2 rounded-2xl w-full"}>
       <div className="rounded-full">
         <Image
           src={session.user.image}
