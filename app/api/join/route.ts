@@ -54,7 +54,7 @@ async function transferInvite(inviter: string, session: Session) {
   })
 }
 
-export async function GET(request: Request) {
+export async function POST(request: Request) {
   const url = new URL(request.url)
   const token = url.searchParams.get("token")
   const inviter = await getInviter(token)

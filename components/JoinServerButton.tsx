@@ -18,7 +18,7 @@ function getColour(success: boolean | null) {
 export const JoinServerButton = ({ joined }: { joined: boolean }) => {
   const params = useSearchParams()
   const [disabled, setDisabled] = useState<boolean>(joined)
-  const [text, setText] = useState(joined ? "Server joined!" : "Join server")
+  const [text, setText] = useState(joined ? "Server joined" : "Join server")
   const [success, setSuccess] = useState<boolean | null>(joined || null)
 
   const onClick = useCallback(() => {
@@ -34,7 +34,9 @@ export const JoinServerButton = ({ joined }: { joined: boolean }) => {
     setDisabled(true)
     setText("Joining server...")
 
-    void fetch(`/api/join?token=${params.get("token") ?? ""}`)
+    void fetch(`/api/join?token=${params.get("token") ?? ""}`, {
+      method: "POST",
+    })
       .then((response) => {
         setSuccess(response.ok)
         setDisabled(response.ok)
