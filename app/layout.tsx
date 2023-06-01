@@ -1,7 +1,12 @@
 import "./globals.css"
 import { Inter } from "next/font/google"
+import { Metadata } from "next"
 
 const inter = Inter({ subsets: ["latin"] })
+
+export const metadata: Metadata = {
+  title: "Suspiciously Wealthy Furries",
+}
 
 // eslint-disable-next-line react/function-component-definition
 export default function RootLayout({
