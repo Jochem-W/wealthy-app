@@ -82,6 +82,7 @@
       "sort-keys": "off",
       "capitalized-comments": "off",
       "multiline-comment-style": "off",
+      "no-undefined": "off",
       "react/jsx-filename-extension": "off",
       "react/jsx-no-literals": "off",
       "react/jsx-curly-brace-presence": "off",
