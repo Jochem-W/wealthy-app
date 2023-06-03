@@ -2,11 +2,20 @@ import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { Metadata } from "next"
 import Link from "next/link"
+import { Variables } from "@/utils/variables"
 
 const inter = Inter({ subsets: ["latin"], weight: "variable" })
 
-export const metadata: Metadata = {
-  title: "Suspiciously Wealthy Furries",
+export function generateMetadata() {
+  const metadata: Metadata = {
+    title: "Suspiciously Wealthy Furries",
+  }
+
+  if (Variables.nextHostname) {
+    metadata.metadataBase = Variables.nextHostname
+  }
+
+  return metadata
 }
 
 // eslint-disable-next-line react/function-component-definition

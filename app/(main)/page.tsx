@@ -8,32 +8,22 @@ import { getInviter } from "@/utils/token"
 import { checkMember } from "@/utils/discord"
 import Link from "next/link"
 import { Suspense } from "react"
-import { UserSpan } from "@/app/components/userSpan"
+import { UserSpan } from "@/components/userSpan"
 import { JetBrains_Mono } from "next/font/google"
-import { Variables } from "@/utils/variables"
-import { Metadata } from "next"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
-export function generateMetadata() {
-  const metadata: Metadata = {
-    openGraph: {
-      type: "website",
-      title: "Suspiciously Wealthy Furries",
-      description:
-        "You've been invited to join @ZestyLemonss' exclusive Ko-fi server: Suspiciously Wealthy Furries!",
-      images: "/icon.png",
-    },
-    twitter: {
-      card: "summary",
-    },
-  }
-
-  if (Variables.nextHostname) {
-    metadata.metadataBase = Variables.nextHostname
-  }
-
-  return metadata
+export const metadata = {
+  openGraph: {
+    type: "website",
+    title: "Suspiciously Wealthy Furries",
+    description:
+      "You've been invited to join @ZestyLemonss' exclusive Ko-fi server: Suspiciously Wealthy Furries!",
+    images: "/icon.png",
+  },
+  twitter: {
+    card: "summary",
+  },
 }
 
 export default async function Home({
