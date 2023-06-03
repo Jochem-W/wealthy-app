@@ -5,23 +5,13 @@ import { JoinServerButton } from "@/components/JoinServerButton"
 import { Container } from "@/components/Container"
 import { SessionInfo } from "@/components/SessionInfo"
 import { getInviter } from "@/utils/token"
-import { checkMember, Discord } from "@/utils/discord"
+import { checkMember } from "@/utils/discord"
 import Link from "next/link"
-import { RESTGetAPIUserResult, Routes } from "discord-api-types/v10"
-import { JetBrains_Mono } from "next/font/google"
 import { Suspense } from "react"
+import { UserSpan } from "@/app/components/userSpan"
+import { JetBrains_Mono } from "next/font/google"
 
 const mono = JetBrains_Mono({ subsets: ["latin"] })
-
-const UserSpan = async ({ id }: { id: string }) => {
-  const response = (await Discord.get(Routes.user(id))) as RESTGetAPIUserResult
-
-  return (
-    <span className={mono.className}>
-      {response.username}#{response.discriminator}
-    </span>
-  )
-}
 
 export default async function Home({
   searchParams,
@@ -59,6 +49,16 @@ export default async function Home({
           click the button below to sign in using Discord and join the server.
         </p>
         <SignInButton></SignInButton>
+        <div className={"flex flex-col"}>
+          <h2 className={"text-2xl"}>Why is this necessary?</h2>
+          <p>
+            While this system is more complex than sending single-use invite
+            links, it allows us to fully automate the invite process. If you
+            have any concerns about logging in with Discord on external
+            websites, please let the person who invited you know, and we'll work
+            something out for you.
+          </p>
+        </div>
       </Container>
     )
   }
