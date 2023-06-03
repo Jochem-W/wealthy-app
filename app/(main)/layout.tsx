@@ -3,7 +3,7 @@ import { Inter } from "next/font/google"
 import { Metadata } from "next"
 import Link from "next/link"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"], weight: "variable" })
 
 export const metadata: Metadata = {
   title: "Suspiciously Wealthy Furries",

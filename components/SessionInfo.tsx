@@ -3,7 +3,7 @@ import { SignOutButton } from "@/components/SignOutButton"
 import { Session } from "next-auth"
 import { JetBrains_Mono } from "next/font/google"
 
-const mono = JetBrains_Mono({ subsets: ["latin"] })
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
 export const SessionInfo = ({ session }: { session: Session }) => (
   <div className={"flex flex-col items-center rounded-2xl w-full gap-2"}>

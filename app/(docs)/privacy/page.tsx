@@ -1,7 +1,7 @@
 import { JetBrains_Mono } from "next/font/google"
 import Link from "next/link"
 
-const mono = JetBrains_Mono({ subsets: ["latin"] })
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
 // eslint-disable-next-line react/function-component-definition
 export default function Page() {
