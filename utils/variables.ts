@@ -13,7 +13,7 @@ const model = z
       .string()
       .url()
       .optional()
-      .transform((arg) => (arg ? new URL(arg) : null)),
+      .transform((arg) => (arg ? new URL(`https://${arg}/`) : null)),
   })
   .transform((arg) => camelcaseKeys(arg))
 
