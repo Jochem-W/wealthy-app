@@ -13,6 +13,21 @@ import { JetBrains_Mono } from "next/font/google"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
+export function generateMetadata() {
+  return {
+    openGraph: {
+      type: "website",
+      title: "Suspiciously Wealthy Furries",
+      description:
+        "You've been invited to join @ZestyLemonss' exclusive Ko-fi server: Suspiciously Wealthy Furries!",
+      images: "icon.png",
+    },
+    twitter: {
+      card: "summary",
+    },
+  }
+}
+
 export default async function Home({
   searchParams,
 }: {
