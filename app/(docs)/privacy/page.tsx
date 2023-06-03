@@ -12,73 +12,201 @@ export default function Page() {
           Privacy Policy
         </h1>
         <span className={"opacity-50 text-sm"}>
-          TL;DR: there&apos;s nothing you have to worry about.
+          TL;DR: your data is only used for the provision of my services.
         </span>
       </header>
       <main className={"max-w-[75ch] flex flex-col gap-4"}>
-        <div className={"flex flex-col gap-1"}>
-          <p>
-            I manually store only the information that I need to provide my
-            services. This may include, but isn&apos;t limited to:
-          </p>
-          <ul className={"list-disc ml-5"}>
-            <li>Publicly accessible Discord account information</li>
-            <li>Non-sensitive Ko-fi account details (e.g. email address)</li>
-          </ul>
-          <p>
-            If at any time you&apos;d like to see exactly which data I have
-            stored, or have any other requests related to your data, please send
-            me a direct message on Discord.
-          </p>
+        <div className={"flex flex-col gap-8"}>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>Contact information</h2>
+            <p>
+              If you&apos;d like to contact me, please use one the following:
+            </p>
+            <ul className={"list-disc ml-5"}>
+              <li>
+                Discord: <span className={mono.className}>lucas.#5018</span>
+              </li>
+              <li>
+                Twitter:{" "}
+                <Link
+                  className={`${mono.className} underline transition-colors hover:text-blue-500`}
+                  href={"https://twitter.com/lucasfloof"}
+                >
+                  @lucasfloof
+                </Link>
+              </li>
+              <li>
+                Email:{" "}
+                <Link
+                  className={`${mono.className} underline transition-colors hover:text-blue-500`}
+                  href={"mailto:admin@lemon-tree.site"}
+                >
+                  admin@lemon-tree.site
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>My services</h2>
+            <p>
+              This privacy policy applies both to the{" "}
+              <span className={mono.className}>Wealthy Bot</span> bot in the
+              Discord server, as well as the invite service. Henceforth, the
+              Discord bot and invite service will be referred to collectively as
+              &quot;my services&quot;.
+            </p>
+            <p>
+              The primary goal of my services is to aid Lemon in keeping track
+              of Ko-fi members, and ensuring that those who are in the exclusive
+              Ko-fi Discord server are paying members. The second goal of my
+              services is to provide benefits to certain tiers. One of these
+              benefits is the invite service.
+            </p>
+          </div>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>Your rights</h2>
+            <p>
+              You&apos;re free to exercise any of the rights under the General
+              Data Protection Regulation (GDPR). This includes, but isn&apos;t
+              limited to:
+            </p>
+            <ul className={"list-disc ml-5"}>
+              <li>Right of access by the data subject.</li>
+              <li>Right to erasure.</li>
+            </ul>
+            <p>Any other requests will be evaluated on a case-by-case basis.</p>
+          </div>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>Usage of cookies</h2>
+            <p>Various cookies are used to allow you to sign in to Discord.</p>
+          </div>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>Storage of personal data</h2>
+            <p>
+              To provide my services, I have to store some personal data. This
+              data is never sold, or used for any purposes other than the
+              provision of my services. These data include:
+            </p>
+            <ul className={"list-disc ml-5"}>
+              <li>
+                Your Discord user ID, which is used to link Ko-fi accounts to
+                Discord users, and to link invitees to subscribers.
+              </li>
+            </ul>
+            <p>
+              In case you&apos;re subscribed to Lemon&apos;s Ko-fi, the
+              following personal data is also stored:
+            </p>
+            <ul className={"list-disc ml-5"}>
+              <li>
+                Your Ko-fi email address, which is used to connect your Ko-fi
+                subscription to Discord for administrative and monitoring
+                purposes. The storing of your email address allows us to make
+                use of the data listed below.
+              </li>
+              <li>
+                Your current subscription tier, which is used to keep track of
+                changes to your subscription.
+              </li>
+              <li>
+                The timestamp of your last subscription payment, which is used
+                to keep track of overdue payments and subscription
+                cancellations.
+              </li>
+            </ul>
+            <p>
+              Ko-fi doesn&apos;t automatically remove members that unsubscribed,
+              and also doesn&apos;t do a great job at sending notifications
+              about changes to subscriptions, which is why the information
+              listed above is stored.
+            </p>
+          </div>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>Processing of personal data</h2>
+            <p>
+              Some personal data are only processed, and never stored, or even
+              used. In addition to the data listed above, the following personal
+              data are processed:
+            </p>
+            <ul className={"list-disc ml-5"}>
+              <li>
+                Transaction information provided by Ko-fi. For an exhaustive
+                list of these data, please refer to{" "}
+                <Link
+                  className={`${mono.className} break-all underline transition-colors hover:text-blue-500`}
+                  href={"https://ko-fi.com/manage/webhooks"}
+                >
+                  https://ko-fi.com/manage/webhooks
+                </Link>
+              </li>
+              <li>
+                Discord user information. This data is publicly available
+                through the Discord API. For an exhaustive list of these data,
+                please refer to{" "}
+                <Link
+                  className={`${mono.className} break-all underline transition-colors hover:text-blue-500`}
+                  href={
+                    "https://discord.com/developers/docs/resources/user#user-object"
+                  }
+                >
+                  https://discord.com/developers/docs/resources/user#user-object
+                </Link>
+              </li>
+              <li>
+                Discord member information. This data is available through the
+                Discord API by anyone that&apos;s in the server. For an
+                exhaustive list of these data, please refer to{" "}
+                <Link
+                  className={`${mono.className} break-all underline transition-colors hover:text-blue-500`}
+                  href={
+                    "https://discord.com/developers/docs/resources/guild#guild-member-object"
+                  }
+                >
+                  https://discord.com/developers/docs/resources/guild#guild-member-object
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>Storage of logs</h2>
+            <p>
+              The software I run to provide my services, such as the webserver,
+              store various logs regarding the usage of my services. These logs
+              can be used for troubleshooting, and are cleared every once in a
+              while. Depending on the logging level, these logs may include any
+              of the information sent to my webserver. Generally, these logs are
+              only created when an error occurs, and only the request headers,
+              request method, request path and source IP address are stored. For
+              an exhaustive list of which data this may include, please consult
+              the <span className={mono.className}>Network</span> tab in your
+              browser&apos;s{" "}
+              <span className={mono.className}>Developer Tools</span>.
+            </p>
+          </div>
+          <div className={"flex flex-col gap-2"}>
+            <h2 className={"text-2xl"}>Your data and third-party services</h2>
+            <p>
+              To protect myself, my services, and the end-user, I make use of
+              various third-party services and tools. The only services that
+              makes use of your data is Cloudflare, which is essentially a
+              middle-man between my services and the end-user, and provides
+              various benefits to me.
+            </p>
+            <p>
+              Any data sent to the invite service passes through
+              Cloudflare&apos;s network. Furthermore, Cloudflare aggregates the
+              data it processes and provides me with anonymous statistics
+              regarding the usage of my services. For more information, please
+              refer to{" "}
+              <Link
+                className={`${mono.className} break-all underline transition-colors hover:text-blue-500`}
+                href={"https://www.cloudflare.com/privacypolicy/"}
+              >
+                https://www.cloudflare.com/privacypolicy/
+              </Link>
+            </p>
+          </div>
         </div>
-        <div className={"flex flex-col gap-1"}>
-          <p>
-            I selected only the Discord OAuth scopes that I need to provide this
-            service:
-          </p>
-          <ul className={"list-disc ml-5"}>
-            <li>
-              <span className={mono.className}>identify</span>: access to basic
-              account information that&apos;s already publicly accessible.
-            </li>
-            <li>
-              <span className={mono.className}>guilds.join</span>: the
-              permission to add you to servers.
-            </li>
-          </ul>
-        </div>
-        <p>
-          This site makes use of cookies and local storage to store information
-          about your session. If it bothers you that there wasn&apos;t a cookie
-          consent banner, please send me a direct message on Discord.
-        </p>
-        <p>
-          To make troubleshooting easier, my webserver stores various logs.
-          These logs can contain parts of the traffic sent to my webserver, and
-          are cleared every once in a while. To see exactly what data is sent to
-          my webserver, please use the{" "}
-          <span className={mono.className}>Network</span> tab in your
-          browser&apos;s <span className={mono.className}>Developer Tools</span>
-          .
-        </p>
-        <p>
-          I use Cloudflare to protect myself, my services, and the end-user.
-          This means that all data sent to my webserver is processed and
-          (temporarily) stored by Cloudflare. For more information, please refer
-          to{" "}
-          <Link
-            className={`underline ${mono.className} transition-colors hover:text-blue-500`}
-            href={"https://www.cloudflare.com/en-gb/privacypolicy/"}
-          >
-            Cloudflare&apos;s Privacy Policy
-          </Link>
-          .
-        </p>
-        <p>
-          If for whatever reason you&apos;d like to take a look at the source
-          code, my server setup, my Cloudflare setup, or anything related to
-          this service, please send me a direct message on Discord.
-        </p>
       </main>
     </div>
   )
