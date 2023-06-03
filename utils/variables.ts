@@ -12,7 +12,7 @@ const model = z
     HOSTNAME: z
       .string()
       .optional()
-      .transform((arg) => (arg ? new URL(`https://${arg}/`) : null)),
+      .transform((arg) => (arg ? new URL(`https://${arg}`) : null)),
   })
   .transform((arg) => camelcaseKeys(arg))
 

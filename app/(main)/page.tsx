@@ -22,7 +22,7 @@ export function generateMetadata() {
       title: "Suspiciously Wealthy Furries",
       description:
         "You've been invited to join @ZestyLemonss' exclusive Ko-fi server: Suspiciously Wealthy Furries!",
-      images: "icon.png",
+      images: "/icon.png",
     },
     twitter: {
       card: "summary",
