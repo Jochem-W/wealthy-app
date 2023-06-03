@@ -9,7 +9,7 @@ const model = z
     DISCORD_BOT_TOKEN: z.string(),
     GUILD_ID: z.string(),
     GRACE_PERIOD: z.coerce.number(),
-    HOSTNAME: z
+    NEXT_HOSTNAME: z
       .string()
       .optional()
       .transform((arg) => (arg ? new URL(`https://${arg}`) : null)),

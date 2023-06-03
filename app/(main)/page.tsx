@@ -29,8 +29,8 @@ export function generateMetadata() {
     },
   }
 
-  if (Variables.hostname) {
-    metadata.metadataBase = Variables.hostname
+  if (Variables.nextHostname) {
+    metadata.metadataBase = Variables.nextHostname
   }
 
   return metadata
