@@ -9,6 +9,11 @@ const model = z
     DISCORD_BOT_TOKEN: z.string(),
     GUILD_ID: z.string(),
     GRACE_PERIOD: z.coerce.number(),
+    HOSTNAME: z
+      .string()
+      .url()
+      .optional()
+      .transform((arg) => (arg ? new URL(arg) : null)),
   })
   .transform((arg) => camelcaseKeys(arg))
 

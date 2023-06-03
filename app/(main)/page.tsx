@@ -10,11 +10,13 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { UserSpan } from "@/app/components/userSpan"
 import { JetBrains_Mono } from "next/font/google"
+import { Variables } from "@/utils/variables"
+import { Metadata } from "next"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
 export function generateMetadata() {
-  return {
+  const metadata: Metadata = {
     openGraph: {
       type: "website",
       title: "Suspiciously Wealthy Furries",
@@ -26,6 +28,12 @@ export function generateMetadata() {
       card: "summary",
     },
   }
+
+  if (Variables.hostname) {
+    metadata.metadataBase = Variables.hostname
+  }
+
+  return metadata
 }
 
 export default async function Home({
