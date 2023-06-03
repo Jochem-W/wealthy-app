@@ -55,8 +55,8 @@ export default async function Home({
             While this system is more complex than sending single-use invite
             links, it allows us to fully automate the invite process. If you
             have any concerns about logging in with Discord on external
-            websites, please let the person who invited you know, and we'll work
-            something out for you.
+            websites, please let the person who invited you know, and we&apos;ll
+            work something out for you.
           </p>
         </div>
       </Container>
