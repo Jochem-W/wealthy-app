@@ -27,7 +27,6 @@ export default function RootLayout({
             "flex flex-col min-[440px]:flex-row gap-2 items-center text-center"
           }
         >
-          {/*<span className={"min-[440px]:hidden"}>Made by Lucas</span>*/}
           <Link
             href={"/privacy"}
             className={
@@ -35,13 +34,6 @@ export default function RootLayout({
             }
           >
             Privacy Policy
-          </Link>
-          <span className={"hidden min-[440px]:inline"}>•</span>
-          <Link
-            href={"/tos"}
-            className={"underline hover:text-blue-500 transition-colors"}
-          >
-            Terms of Service
           </Link>
           <span className={"hidden min-[440px]:inline"}>•</span>
           <span>Made by Lucas</span>
