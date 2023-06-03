@@ -48,10 +48,9 @@ export default async function Home({
           &apos; exclusive Ko-fi server: Suspiciously Wealthy Furries! Please
           click the button below to sign in using Discord and join the server.
         </p>
-        <SignInButton></SignInButton>
         <div className={"flex flex-col"}>
           <h2 className={"text-2xl"}>Why is this necessary?</h2>
-          <p>
+          <p className={"max-w-[75ch]"}>
             While this system is more complex than sending single-use invite
             links, it allows us to fully automate the invite process. If you
             have any concerns about logging in with Discord on external
@@ -59,6 +58,7 @@ export default async function Home({
             work something out for you.
           </p>
         </div>
+        <SignInButton></SignInButton>
       </Container>
     )
   }
