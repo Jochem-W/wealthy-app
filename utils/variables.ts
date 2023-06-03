@@ -11,7 +11,6 @@ const model = z
     GRACE_PERIOD: z.coerce.number(),
     HOSTNAME: z
       .string()
-      .url()
       .optional()
       .transform((arg) => (arg ? new URL(`https://${arg}/`) : null)),
   })
