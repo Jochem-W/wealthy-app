@@ -90,13 +90,10 @@ export default async function Page({
         <div key={key} className={"flex flex-col gap-2"}>
           <h2 className={"text-3xl"}>{key}</h2>
           {values.map(({ member, user }) => (
-            <>
-              <div
-                key={member.user.id}
-                className={"h-0.5 bg-white bg-opacity-10"}
-              ></div>
+            <div className="flex flex-col gap-2" key={member.user.id}>
+              <div className={"h-0.5 bg-neutral-500 bg-opacity-30"}></div>
               <MemberComponent member={member} user={user}></MemberComponent>
-            </>
+            </div>
           ))}
         </div>
       ))}
