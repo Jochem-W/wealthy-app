@@ -1,5 +1,6 @@
 import { JetBrains_Mono } from "next/font/google"
 import Link from "next/link"
+import { EmailLink } from "@/components/EmailLink"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
@@ -36,13 +37,7 @@ export default function Page() {
                 </Link>
               </li>
               <li>
-                Email:{" "}
-                <Link
-                  className={`${mono.className} underline transition-colors hover:text-blue-500`}
-                  href={"mailto:admin@lemon-tree.site"}
-                >
-                  admin@lemon-tree.site
-                </Link>
+                Email: <EmailLink email={"admin@lemon-tree.site"}></EmailLink>
               </li>
             </ul>
           </div>

@@ -15,13 +15,13 @@ export default function RootLayout({
       lang="en"
       className={`${inter.className} flex flex-col items-center justify-between min-h-[100svh] p-4 gap-4`}
     >
-      <body className={"flex flex-col gap-4"}>
+      <body className={"flex flex-col gap-4 w-[100%] items-center"}>
         <header>
           {/*<h1 className={"text-6xl text-center"}>*/}
           {/*  Suspiciously Wealthy Furries*/}
           {/*</h1>*/}
         </header>
-        <main className={"flex flex-col container"}>{children}</main>
+        <main className={"flex flex-col container gap-8"}>{children}</main>
         <footer
           className={
             "flex flex-col min-[440px]:flex-row gap-2 items-center text-center justify-center"

@@ -8,8 +8,8 @@ import { getInviter } from "@/utils/token"
 import { checkMember } from "@/utils/discord"
 import Link from "next/link"
 import { Suspense } from "react"
-import { UserSpan } from "@/components/userSpan"
 import { JetBrains_Mono } from "next/font/google"
+import { AsyncDiscordUsername } from "@/components/AsyncDiscordUsername"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
@@ -49,7 +49,7 @@ export default async function Home({
           You&apos;ve been invited by{" "}
           <Suspense fallback={<span className={mono.className}>someone</span>}>
             {/* @ts-expect-error Async Server Component */}
-            <UserSpan id={inviter}></UserSpan>
+            <AsyncDiscordUsername id={inviter}></AsyncDiscordUsername>
           </Suspense>{" "}
           to join{" "}
           <Link

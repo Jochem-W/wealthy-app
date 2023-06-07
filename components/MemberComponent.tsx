@@ -1,14 +1,12 @@
-import { MemberWithUser, avatarUrl, discordTag } from "@/utils/discord"
+import { MemberWithUser, avatarUrl } from "@/utils/discord"
 import { expiredMillis } from "@/utils/misc"
 import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
-import { JetBrains_Mono } from "next/font/google"
 import Image from "next/image"
-import Link from "next/link"
+import { DiscordUsername } from "@/components/DiscordUsername"
+import { EmailLink } from "@/components/EmailLink"
 
 export type TierEntry = { member: MemberWithUser; user?: User }
-
-const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
 export const MemberComponent = ({
   member,
@@ -32,16 +30,11 @@ export const MemberComponent = ({
           height={48}
           width={48}
         ></Image>
-        <span className={mono.className}>{discordTag(member)}</span>
+        <DiscordUsername member={member}></DiscordUsername>
       </div>
       {user ? (
         <div className={"flex flex-col justify-between"}>
-          <Link
-            href={`mailto:${user.email}`}
-            className={`${mono.className} underline hover:text-blue-500 transition-colors break-all`}
-          >
-            {user.email}
-          </Link>
+          <EmailLink email={user.email}></EmailLink>
           <div className="group relative">
             <span className="absolute left-0 visible opacity-100 group-hover:invisible group-hover:opacity-0 transition-all">
               Last paid{" "}

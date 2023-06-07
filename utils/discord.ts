@@ -32,10 +32,6 @@ if (process.env.NODE_ENV !== "production") {
 export type MemberWithUser = APIGuildMember & { user: APIUser }
 export type MembersResponse = MemberWithUser[]
 
-export function discordTag(member: MemberWithUser) {
-  return `${member.user.username}#${member.user.discriminator}`
-}
-
 function avatarPath(avatar: string) {
   if (avatar.startsWith("a_")) {
     return `${avatar}.gif`
