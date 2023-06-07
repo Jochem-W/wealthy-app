@@ -87,15 +87,20 @@ export default async function Page({
     <div className={"flex flex-col gap-8"}>
       <h1 className="text-5xl">Discord Members</h1>
       {[...subscribers.entries()].map(([key, values]) => (
-        <div key={key} className={"flex flex-col gap-2"}>
+        <>
           <h2 className={"text-3xl"}>{key}</h2>
-          {values.map(({ member, user }) => (
-            <div className="flex flex-col gap-2" key={member.user.id}>
-              <div className={"h-0.5 bg-neutral-500 bg-opacity-30"}></div>
-              <MemberComponent member={member} user={user}></MemberComponent>
-            </div>
-          ))}
-        </div>
+          <div key={key} className={"flex flex-row flex-wrap gap-2"}>
+            {values.map(({ member, user }) => (
+              <div
+                className="flex flex-col gap-2 basis-[min(350px,100%)] grow"
+                key={member.user.id}
+              >
+                <div className={"h-0.5 bg-neutral-500 bg-opacity-30"}></div>
+                <MemberComponent member={member} user={user}></MemberComponent>
+              </div>
+            ))}
+          </div>
+        </>
       ))}
     </div>
   )

@@ -36,21 +36,12 @@ export const MemberComponent = ({
       </div>
       {user ? (
         <div className={"flex flex-col justify-between"}>
-          <div
-            className={
-              "flex flex-col min-[540px]:flex-row min-[540px]:gap-2 min-[540px]:items-center"
-            }
+          <Link
+            href={`mailto:${user.email}`}
+            className={`${mono.className} underline hover:text-blue-500 transition-colors break-all`}
           >
-            <span>{user.name}</span>
-            <span className={"hidden min-[540px]:inline"}>•</span>
-            <Link
-              href={`mailto:${user.email}`}
-              className={`${mono.className} underline hover:text-blue-500 transition-colors break-all`}
-            >
-              {user.email}
-            </Link>
-          </div>
-
+            {user.email}
+          </Link>
           <div className="group relative">
             <span className="absolute left-0 visible opacity-100 group-hover:invisible group-hover:opacity-0 transition-all">
               Last paid{" "}
