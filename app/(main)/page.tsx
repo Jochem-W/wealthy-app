@@ -48,7 +48,6 @@ export default async function Home({
         <p className={"max-w-[75ch]"}>
           You&apos;ve been invited by{" "}
           <Suspense fallback={<span className={mono.className}>someone</span>}>
-            {/* @ts-expect-error Async Server Component */}
             <AsyncDiscordUsername id={inviter}></AsyncDiscordUsername>
           </Suspense>{" "}
           to join{" "}
