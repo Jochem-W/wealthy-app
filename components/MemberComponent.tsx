@@ -4,7 +4,7 @@ import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
 import Image from "next/image"
 import { DiscordUsername } from "@/components/DiscordUsername"
-import { EmailLink } from "@/components/EmailLink"
+import { EmailSpoiler } from "@/components/EmailSpoiler"
 
 export type TierEntry = { member: MemberWithUser; user?: User }
 
@@ -34,7 +34,7 @@ export const MemberComponent = ({
       </div>
       {user ? (
         <div className={"flex flex-col justify-between"}>
-          <EmailLink email={user.email}></EmailLink>
+          <EmailSpoiler email={user.email}></EmailSpoiler>
           <div className="group relative">
             <span className="absolute left-0 visible opacity-100 group-hover:invisible group-hover:opacity-0 transition-all">
               Last paid{" "}
