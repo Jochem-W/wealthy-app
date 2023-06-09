@@ -24,7 +24,10 @@ export const EmailSpoiler = ({ email }: { email: string }) => {
           {" ".repeat(email.length)}
         </span>
       ) : (
-        <EmailLink email={email}></EmailLink>
+        <EmailLink
+          email={email}
+          className={"bg-neutral-500 bg-opacity-10"}
+        ></EmailLink>
       )}
     </button>
   )
