@@ -42,6 +42,10 @@ async function getSubscribers() {
   const unknownTier = "Unknown"
 
   for (const member of members.values()) {
+    if (member.user.bot) {
+      continue
+    }
+
     const user = users.find((u) => u.discordId === member.user.id)
     if (!user) {
       if (!tiers.get(unknownTier)) {
