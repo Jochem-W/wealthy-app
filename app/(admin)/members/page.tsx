@@ -1,6 +1,11 @@
 import { Prisma } from "@/utils/clients"
 import { Discord } from "@/utils/discord"
-import { APIGuildMember, APIUser, Routes } from "discord-api-types/v10"
+import {
+  APIGuildMember,
+  APIUser,
+  RESTGetAPIGuildRolesResult,
+  Routes,
+} from "discord-api-types/v10"
 import { Variables } from "@/utils/variables"
 import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
@@ -27,6 +32,15 @@ async function getMembers() {
   return members
 }
 
+async function getAdminRoles() {
+  const roles = (await Discord.get(
+    Routes.guildRoles(Variables.guildId)
+  )) as RESTGetAPIGuildRolesResult
+  return roles.filter(
+    (role) => BigInt(role.permissions) & (BigInt(1) << BigInt(3))
+  )
+}
+
 function discordUsername(member: MemberWithUser) {
   if (member.user.discriminator !== "0") {
     return `${member.user.username}#${member.user.discriminator}`
@@ -38,8 +52,13 @@ function discordUsername(member: MemberWithUser) {
 async function getSubscribers() {
   const users = await Prisma.user.findMany()
   const members = await getMembers()
+  const adminRoles = await getAdminRoles()
   const tiers = new Map<string, TierEntry[]>()
   const unknownTier = "Unknown"
+  const unsubscribedStaff = "Unsubscribed staff"
+
+  tiers.set(unknownTier, [])
+  tiers.set(unsubscribedStaff, [])
 
   for (const member of members.values()) {
     if (member.user.bot) {
@@ -48,8 +67,9 @@ async function getSubscribers() {
 
     const user = users.find((u) => u.discordId === member.user.id)
     if (!user) {
-      if (!tiers.get(unknownTier)) {
-        tiers.set(unknownTier, [])
+      if (adminRoles.some((role) => member.roles.includes(role.id))) {
+        tiers.get(unsubscribedStaff)?.push({ member })
+        continue
       }
 
       tiers.get(unknownTier)?.push({ member })
