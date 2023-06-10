@@ -5,7 +5,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
 export const EmailLink = ({
   email,
-  className,
+  className = undefined,
 }: {
   email: string
   className?: string
@@ -26,5 +26,3 @@ export const EmailLink = ({
     </Link>
   )
 }
-
-EmailLink.defaultProps = { className: undefined }

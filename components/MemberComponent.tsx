@@ -10,7 +10,7 @@ export type TierEntry = { member: MemberWithUser; user?: User }
 
 export const MemberComponent = ({
   member,
-  user,
+  user = undefined,
 }: {
   member: MemberWithUser
   user?: User
@@ -51,4 +51,3 @@ export const MemberComponent = ({
     </div>
   )
 }
-MemberComponent.defaultProps = { user: undefined }
