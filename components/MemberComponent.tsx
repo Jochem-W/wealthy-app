@@ -35,7 +35,7 @@ export const MemberComponent = ({
       {user ? (
         <div className={"flex flex-col justify-between"}>
           <EmailSpoiler email={user.email}></EmailSpoiler>
-          <div className="group relative">
+          <div className="group relative w-fit">
             <span className="absolute left-0 visible opacity-100 group-hover:invisible group-hover:opacity-0 transition-all">
               Last paid{" "}
               {DateTime.fromJSDate(user.lastPaymentTime).toRelative({

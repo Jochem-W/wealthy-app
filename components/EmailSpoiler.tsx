@@ -11,7 +11,7 @@ export const EmailSpoiler = ({ email }: { email: string }) => {
 
   return (
     <button
-      className={`flex ${mono.className}`}
+      className={`flex ${mono.className} w-fit`}
       type={"button"}
       onClick={useCallback(() => setHidden(false), [setHidden])}
     >
