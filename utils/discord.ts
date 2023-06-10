@@ -32,28 +32,18 @@ if (process.env.NODE_ENV !== "production") {
 export type MemberWithUser = APIGuildMember & { user: APIUser }
 export type MembersResponse = MemberWithUser[]
 
-function avatarPath(avatar: string) {
-  if (avatar.startsWith("a_")) {
-    return `${avatar}.gif`
-  }
-
-  return `${avatar}.webp`
-}
-
-export function avatarUrl(member: MemberWithUser) {
+export function displayAvatarUrl(member: MemberWithUser) {
   if (member.avatar) {
-    return `https://cdn.discordapp.com/guilds/${Variables.guildId}/users/${
-      member.user.id
-    }/avatars/${avatarPath(member.avatar)}`
+    return Discord.cdn.guildMemberAvatar(
+      Variables.guildId,
+      member.user.id,
+      member.avatar
+    )
   }
 
   if (member.user.avatar) {
-    return `https://cdn.discordapp.com/avatars/${member.user.id}/${avatarPath(
-      member.user.avatar
-    )}`
+    return Discord.cdn.avatar(member.user.id, member.user.avatar)
   }
 
-  return `https://cdn.discordapp.com/embed/avatars/${
-    parseInt(member.user.discriminator, 10) % 5
-  }.png`
+  return Discord.cdn.defaultAvatar(parseInt(member.user.discriminator, 10))
 }

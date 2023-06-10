@@ -1,4 +1,4 @@
-import { MemberWithUser, avatarUrl } from "@/utils/discord"
+import { MemberWithUser, displayAvatarUrl } from "@/utils/discord"
 import { expiredMillis } from "@/utils/misc"
 import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
@@ -25,7 +25,7 @@ export const MemberComponent = ({
       <div className={"flex gap-4 items-center"}>
         <Image
           className={"rounded-full"}
-          src={avatarUrl(member)}
+          src={displayAvatarUrl(member)}
           alt={"Discord avatar"}
           height={48}
           width={48}
