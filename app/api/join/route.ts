@@ -1,7 +1,7 @@
 import { Routes } from "discord-api-types/v10"
 import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
-import { getInviter } from "@/utils/token"
+import { getSubject } from "@/utils/token"
 import { Variables } from "@/utils/variables"
 import { Prisma } from "@/utils/clients"
 import { checkMember, Discord } from "@/utils/discord"
@@ -63,7 +63,7 @@ async function transferInvite(inviter: string, session: Session) {
 export async function POST(request: Request) {
   const url = new URL(request.url)
   const token = url.searchParams.get("token")
-  const inviter = await getInviter(token)
+  const inviter = await getSubject(token)
   if (!inviter) {
     return new Response("Invalid token", { status: 403 })
   }

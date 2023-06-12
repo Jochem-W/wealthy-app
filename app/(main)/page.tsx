@@ -4,7 +4,7 @@ import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { JoinServerButton } from "@/components/JoinServerButton"
 import { Container } from "@/components/Container"
 import { SessionInfo } from "@/components/SessionInfo"
-import { getInviter } from "@/utils/token"
+import { getSubject } from "@/utils/token"
 import { checkMember } from "@/utils/discord"
 import Link from "next/link"
 import { Suspense } from "react"
@@ -31,7 +31,7 @@ export default async function Home({
 }: {
   searchParams: Record<string, string | string[] | undefined>
 }) {
-  const inviter = await getInviter(searchParams["token"])
+  const inviter = await getSubject(searchParams["token"])
   if (!inviter) {
     return (
       <Container>

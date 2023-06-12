@@ -4,7 +4,7 @@ import { Variables } from "@/utils/variables"
 
 const key = createSecretKey(Variables.secretKey, "utf-8")
 
-export const getInviter = async (token: unknown) => {
+export const getSubject = async (token: unknown) => {
   if (typeof token !== "string") {
     return null
   }

@@ -9,7 +9,7 @@ import {
 import { Variables } from "@/utils/variables"
 import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
-import { getInviter } from "@/utils/token"
+import { getSubject } from "@/utils/token"
 import { MemberComponent } from "@/components/MemberComponent"
 
 type MemberWithUser = APIGuildMember & { user: APIUser }
@@ -103,8 +103,8 @@ export default async function Page({
 }: {
   searchParams: Record<string, string | string[] | undefined>
 }) {
-  const invitee = await getInviter(searchParams["token"])
-  if (!invitee || invitee !== "1106267397985423440") {
+  const subject = await getSubject(searchParams["token"])
+  if (!subject || subject !== "1106267397985423440") {
     return (
       <div className="flex flex-col gap-8">
         <h1 className="text-6xl">Discord Members</h1>
