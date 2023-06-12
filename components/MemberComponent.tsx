@@ -5,8 +5,11 @@ import { DateTime } from "luxon"
 import Image from "next/image"
 import { DiscordUsername } from "@/components/DiscordUsername"
 import { EmailSpoiler } from "@/components/EmailSpoiler"
+import { JetBrains_Mono } from "next/font/google"
 
 export type TierEntry = { member: MemberWithUser; user?: User }
+
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
 export const MemberComponent = ({
   member,
@@ -30,7 +33,10 @@ export const MemberComponent = ({
           height={48}
           width={48}
         ></Image>
-        <DiscordUsername member={member}></DiscordUsername>
+        <div className={`flex flex-col ${mono.className}`}>
+          <DiscordUsername member={member}></DiscordUsername>
+          <span>{member.user.id}</span>
+        </div>
       </div>
       {user ? (
         <div className={"flex flex-col justify-between"}>
