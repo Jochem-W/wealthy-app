@@ -6,8 +6,8 @@ import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
 import { getSubject } from "@/utils/token"
 import { MemberComponent } from "@/components/MemberComponent"
+import { expiredMillis } from "@/utils/misc"
 
-type MemberWithUser = APIGuildMember & { user: APIUser }
 type MembersResponse = MemberWithUser[]
 type TierEntry = { member: MemberWithUser; user?: User }
 
@@ -50,9 +50,11 @@ async function getSubscribers() {
   const adminRoles = await getAdminRoles()
   const tiers = new Map<string, TierEntry[]>()
   const unknownTier = "Unknown"
+  const expiredTier = "Expired"
   const unsubscribedStaff = "Unsubscribed staff"
 
   tiers.set(unknownTier, [])
+  tiers.set(expiredTier, [])
   tiers.set(unsubscribedStaff, [])
 
   for (const member of members.values()) {
@@ -69,6 +71,10 @@ async function getSubscribers() {
 
       tiers.get(unknownTier)?.push({ member })
       continue
+    }
+
+    if (expiredMillis(user) < 0) {
+      tiers.get(expiredTier)?.push({ member, user })
     }
 
     if (!tiers.get(user.lastPaymentTier)) {
