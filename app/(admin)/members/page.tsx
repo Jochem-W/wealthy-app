@@ -1,11 +1,6 @@
 import { Prisma } from "@/utils/clients"
-import { Discord } from "@/utils/discord"
-import {
-  APIGuildMember,
-  APIUser,
-  RESTGetAPIGuildRolesResult,
-  Routes,
-} from "discord-api-types/v10"
+import { Discord, MemberWithUser } from "@/utils/discord"
+import { RESTGetAPIGuildRolesResult, Routes } from "discord-api-types/v10"
 import { Variables } from "@/utils/variables"
 import type { User } from "@prisma/client"
 import { DateTime } from "luxon"

@@ -34,7 +34,7 @@ export const MemberComponent = ({
           width={48}
         ></Image>
         <div className={`flex flex-col ${mono.className}`}>
-          <DiscordUsername member={member}></DiscordUsername>
+          <DiscordUsername user={member.user}></DiscordUsername>
           <span>{member.user.id}</span>
         </div>
       </div>

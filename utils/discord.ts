@@ -5,6 +5,10 @@ import { Variables } from "@/utils/variables"
 import { REST } from "@discordjs/rest"
 import { APIGuildMember, APIUser } from "discord-api-types/v10"
 
+export type UpdatedAPIUser = APIUser & { global_name?: string }
+export type MemberWithUser = APIGuildMember & { user: UpdatedAPIUser }
+export type MembersResponse = MemberWithUser[]
+
 const globalForDiscord = global as unknown as { discord: REST | undefined }
 export const Discord =
   globalForDiscord.discord ??
@@ -29,9 +33,6 @@ if (process.env.NODE_ENV !== "production") {
   globalForDiscord.discord = Discord
 }
 
-export type MemberWithUser = APIGuildMember & { user: APIUser }
-export type MembersResponse = MemberWithUser[]
-
 export function displayAvatarUrl(member: MemberWithUser) {
   if (member.avatar) {
     return Discord.cdn.guildMemberAvatar(
@@ -46,4 +47,12 @@ export function displayAvatarUrl(member: MemberWithUser) {
   }
 
   return Discord.cdn.defaultAvatar(parseInt(member.user.discriminator, 10))
+}
+
+export function userDisplayName(user: UpdatedAPIUser) {
+  if (user.global_name) {
+    return user.global_name
+  }
+
+  return user.username
 }
