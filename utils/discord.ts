@@ -1,12 +1,10 @@
 import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
-import { Routes } from "discord-api-types/v10"
+import { APIGuildMember, APIUser, Routes } from "discord-api-types/v10"
 import { Variables } from "@/utils/variables"
 import { REST } from "@discordjs/rest"
-import { APIGuildMember, APIUser } from "discord-api-types/v10"
 
-export type UpdatedAPIUser = APIUser & { global_name?: string }
-export type MemberWithUser = APIGuildMember & { user: UpdatedAPIUser }
+export type MemberWithUser = APIGuildMember & { user: APIUser }
 export type MembersResponse = MemberWithUser[]
 
 const globalForDiscord = global as unknown as { discord: REST | undefined }
@@ -49,7 +47,7 @@ export function displayAvatarUrl(member: MemberWithUser) {
   return Discord.cdn.defaultAvatar(parseInt(member.user.discriminator, 10))
 }
 
-export function userDisplayName(user: UpdatedAPIUser) {
+export function userDisplayName(user: APIUser) {
   if (user.global_name) {
     return user.global_name
   }
