@@ -58,8 +58,8 @@ devDependencies:
     specifier: ^3.3.0
     version: 3.3.0
   '@types/node':
-    specifier: 20.3.1
-    version: 20.3.1
+    specifier: 20.3.2
+    version: 20.3.2
   '@types/react':
     specifier: 18.2.14
     version: 18.2.14
@@ -432,8 +432,8 @@ packages:
     resolution: {integrity: sha512-uKRI5QORDnrGFYgcdAVnHvEIvEZ8noTpP/Bg+HeUzZghwinDlIS87DEenV5r1YoOF9G4x600YsUXLWZ19rmTmg==}
     dev: true
 
-  /@types/node@20.3.1:
-    resolution: {integrity: sha512-EhcH/wvidPy1WeML3TtYFGR83UzjxeWRen9V402T8aUGYsCHOmfoisV3ZSg03gAFIbLq8TnWOJ0f4cALtnSEUg==}
+  /@types/node@20.3.2:
+    resolution: {integrity: sha512-vOBLVQeCQfIcF/2Y7eKFTqrMnizK5lRNQ7ykML/5RuwVXVWxYkgwS7xbt4B6fKCUPgbSL5FSsjHQpaGQP/dQmw==}
     dev: true
 
   /@types/prop-types@15.7.5:
