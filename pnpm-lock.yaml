@@ -46,8 +46,8 @@ optionalDependencies:
 
 devDependencies:
   '@tsconfig/next':
-    specifier: ^1.0.5
-    version: 1.0.5
+    specifier: ^2.0.0
+    version: 2.0.0
   '@tsconfig/node20':
     specifier: ^1.0.1
     version: 1.0.1
@@ -408,8 +408,8 @@ packages:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
     dev: false
 
-  /@tsconfig/next@1.0.5:
-    resolution: {integrity: sha512-ZpAlWqSGE3ZWFqKmI3FiQEu8WcBF3uii1z1ovedMcALflsRoJnExp3YzWQ/fU7lzGmYtfX1CWFpf1Gl8aEC6GQ==}
+  /@tsconfig/next@2.0.0:
+    resolution: {integrity: sha512-ip/XpFLWuUrhDkbI8ixpWxPlmWvUhQCLS5rB7nibcZUavA1Ru34Q7a5CniBM7BdHw1YlAXu40HXUn66h/A4EBQ==}
     dev: true
 
   /@tsconfig/node20@1.0.1:
