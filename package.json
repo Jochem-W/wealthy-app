@@ -65,6 +65,7 @@
         "warn",
         "type"
       ],
+      "dot-notation": "off",
       "func-style": "off",
       "no-void": [
         2,
