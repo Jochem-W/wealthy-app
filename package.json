@@ -47,7 +47,7 @@
     "semi": false
   },
   "optionalDependencies": {
-    "sharp": "^0.32.2"
+    "sharp": "^0.32.3"
   },
   "eslintConfig": {
     "extends": [
