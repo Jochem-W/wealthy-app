@@ -7,11 +7,11 @@ function onClick() {
 }
 
 export const SignOutButton = () => (
-    <button
-      className={"underline hover:text-blue-600 transition-colors"}
-      onClick={onClick}
-      type={"button"}
-    >
-      Sign out
-    </button>
-  )
+  <button
+    className={"underline hover:text-blue-600 transition-colors"}
+    onClick={onClick}
+    type={"button"}
+  >
+    Sign out
+  </button>
+)

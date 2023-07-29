@@ -48,7 +48,7 @@ export const JoinServerButton = ({ joined }: { readonly joined: boolean }) => {
   return (
     <button
       className={`p-4 text-2xl rounded-2xl transition border disabled:opacity-30 ${getColour(
-        success
+        success,
       )}`}
       disabled={disabled}
       onClick={onClick}

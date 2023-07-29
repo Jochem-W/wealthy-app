@@ -16,7 +16,7 @@ async function getMembers() {
     Routes.guildMembers(Variables.guildId),
     {
       query: new URLSearchParams({ limit: "1000" }),
-    }
+    },
   )) as MembersResponse
 
   const members = new Map<string, MemberWithUser>()
@@ -29,10 +29,10 @@ async function getMembers() {
 
 async function getAdminRoles() {
   const roles = (await Discord.get(
-    Routes.guildRoles(Variables.guildId)
+    Routes.guildRoles(Variables.guildId),
   )) as RESTGetAPIGuildRolesResult
   return roles.filter(
-    (role) => BigInt(role.permissions) & (BigInt(1) << BigInt(3))
+    (role) => BigInt(role.permissions) & (BigInt(1) << BigInt(3)),
   )
 }
 

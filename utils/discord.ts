@@ -36,7 +36,7 @@ export function displayAvatarUrl(member: MemberWithUser) {
     return Discord.cdn.guildMemberAvatar(
       Variables.guildId,
       member.user.id,
-      member.avatar
+      member.avatar,
     )
   }
 

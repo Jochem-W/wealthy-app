@@ -46,7 +46,7 @@ async function transferInvite(inviter: string, session: Session) {
   })
   if (!toKick) {
     await Discord.delete(
-      Routes.guildMember(Variables.guildId, member.invitee.discordId)
+      Routes.guildMember(Variables.guildId, member.invitee.discordId),
     )
   }
   await Prisma.invitee.delete({
