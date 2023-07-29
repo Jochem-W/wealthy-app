@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"], weight: "variable" })
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  readonly children: React.ReactNode
 }) {
   return (
     <html

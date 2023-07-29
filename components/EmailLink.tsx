@@ -7,8 +7,8 @@ export const EmailLink = ({
   email,
   className = undefined,
 }: {
-  email: string
-  className?: string
+  readonly email: string
+  readonly className?: string
 }) => {
   const [username, domain] = email.split("@")
   if (!username || !domain) {

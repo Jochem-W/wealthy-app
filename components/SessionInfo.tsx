@@ -3,7 +3,7 @@ import { SignOutButton } from "@/components/SignOutButton"
 import { Session } from "next-auth"
 import { RawDiscordUsername } from "./RawDiscordUsername"
 
-export const SessionInfo = ({ session }: { session: Session }) => (
+export const SessionInfo = ({ session }: { readonly session: Session }) => (
   <div className={"flex flex-col items-center rounded-2xl w-full gap-2"}>
     <Image
       className={"rounded-full"}

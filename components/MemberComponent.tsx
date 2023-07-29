@@ -15,8 +15,8 @@ export const MemberComponent = ({
   member,
   user = undefined,
 }: {
-  member: MemberWithUser
-  user?: User
+  readonly member: MemberWithUser
+  readonly user?: User
 }) => {
   let bg = ""
   if (user && expiredMillis(user) < 0) {

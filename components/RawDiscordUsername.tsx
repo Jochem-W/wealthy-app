@@ -6,8 +6,8 @@ export const RawDiscordUsername = ({
   username,
   discriminator = undefined,
 }: {
-  username: string
-  discriminator?: string
+  readonly username: string
+  readonly discriminator?: string
 }) => {
   const [before, after] = discriminator
     ? [username, discriminator]

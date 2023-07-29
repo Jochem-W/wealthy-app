@@ -15,7 +15,7 @@ function getColour(success: boolean | null) {
   return "border-red-500 bg-red-500/20 enabled:hover:bg-red-500/30"
 }
 
-export const JoinServerButton = ({ joined }: { joined: boolean }) => {
+export const JoinServerButton = ({ joined }: { readonly joined: boolean }) => {
   const params = useSearchParams()
   const [disabled, setDisabled] = useState<boolean>(joined)
   const [text, setText] = useState(joined ? "Server joined" : "Join server")

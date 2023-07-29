@@ -6,7 +6,7 @@ import { JetBrains_Mono } from "next/font/google"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
-export const EmailSpoiler = ({ email }: { email: string }) => {
+export const EmailSpoiler = ({ email }: { readonly email: string }) => {
   const [hidden, setHidden] = useState(true)
 
   return (
