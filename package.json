@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@discordjs/rest": "^1.7.1",
+    "@discordjs/rest": "^2.0.0",
     "@prisma/client": "^5.0.0",
     "camelcase-keys": "^8.0.2",
     "discord-api-types": "^0.37.50",
