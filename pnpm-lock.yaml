@@ -15,8 +15,8 @@ dependencies:
     specifier: ^8.0.2
     version: 8.0.2
   discord-api-types:
-    specifier: ^0.37.50
-    version: 0.37.50
+    specifier: ^0.37.54
+    version: 0.37.54
   jose:
     specifier: ^4.14.4
     version: 4.14.4
@@ -137,7 +137,7 @@ packages:
       '@discordjs/util': 0.3.1
       '@sapphire/async-queue': 1.5.0
       '@sapphire/snowflake': 3.5.1
-      discord-api-types: 0.37.50
+      discord-api-types: 0.37.54
       file-type: 18.5.0
       tslib: 2.6.1
       undici: 5.22.1
@@ -1156,8 +1156,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /discord-api-types@0.37.50:
-    resolution: {integrity: sha512-X4CDiMnDbA3s3RaUXWXmgAIbY1uxab3fqe3qwzg5XutR3wjqi7M3IkgQbsIBzpqBN2YWr/Qdv7JrFRqSgb4TFg==}
+  /discord-api-types@0.37.54:
+    resolution: {integrity: sha512-xNO6yzEMfpVSVUa6lOOzgLDy3Gyd8yuBAozGQdjpW9VjRq2Ccboz4FhTrd5v4Hw7pbkCKwnHvddjIYrX0INkUQ==}
     dev: false
 
   /dlv@1.1.3:
