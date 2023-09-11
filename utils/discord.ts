@@ -46,11 +46,3 @@ export function displayAvatarUrl(member: MemberWithUser) {
 
   return Discord.cdn.defaultAvatar(parseInt(member.user.discriminator, 10))
 }
-
-export function userDisplayName(user: APIUser) {
-  if (user.global_name) {
-    return user.global_name
-  }
-
-  return user.username
-}
