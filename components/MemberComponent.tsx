@@ -28,7 +28,7 @@ export const MemberComponent = ({
       <div className={"flex gap-4 items-center"}>
         <Image
           className={"rounded-full"}
-          src={displayAvatarUrl(member)}
+          src={displayAvatarUrl(member.user)}
           alt={"Discord avatar"}
           height={48}
           width={48}

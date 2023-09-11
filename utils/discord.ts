@@ -31,18 +31,14 @@ if (process.env.NODE_ENV !== "production") {
   globalForDiscord.discord = Discord
 }
 
-export function displayAvatarUrl(member: MemberWithUser) {
-  if (member.avatar) {
-    return Discord.cdn.guildMemberAvatar(
-      Variables.guildId,
-      member.user.id,
-      member.avatar,
-    )
+export function displayAvatarUrl(user: APIUser) {
+  if (user.avatar) {
+    return Discord.cdn.avatar(user.id, user.avatar)
   }
 
-  if (member.user.avatar) {
-    return Discord.cdn.avatar(member.user.id, member.user.avatar)
+  if (user.discriminator !== "0") {
+    return Discord.cdn.defaultAvatar(parseInt(user.discriminator, 10) % 5)
   }
 
-  return Discord.cdn.defaultAvatar(parseInt(member.user.discriminator, 10))
+  return Discord.cdn.defaultAvatar(Number((BigInt(user.id) >> 22n) % 6n))
 }
