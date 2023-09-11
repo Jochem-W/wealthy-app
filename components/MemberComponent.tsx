@@ -34,6 +34,9 @@ export const MemberComponent = ({
           width={48}
         ></Image>
         <div className={`flex flex-col ${mono.className}`}>
+          {member.user.global_name ? (
+            <span>{member.user.global_name}</span>
+          ) : undefined}
           <DiscordUsername user={member.user}></DiscordUsername>
           <span>{member.user.id}</span>
         </div>
