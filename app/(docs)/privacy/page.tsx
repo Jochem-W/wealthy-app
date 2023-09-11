@@ -13,7 +13,7 @@ export default function Page() {
           Privacy Policy
         </h1>
         <span className={"opacity-50 text-sm"}>
-          TL;DR: your data is only used for the provision of my services.
+          TL;DR: your data are only used for the provision of my services.
         </span>
       </header>
       <main className={"max-w-[75ch] flex flex-col gap-4"}>
@@ -25,7 +25,7 @@ export default function Page() {
             </p>
             <ul className={"list-disc ml-5"}>
               <li>
-                Discord: <span className={mono.className}>lucas.#5018</span>
+                Discord: <span className={mono.className}>lucasfloof</span>
               </li>
               <li>
                 Twitter:{" "}
@@ -78,8 +78,8 @@ export default function Page() {
           <div className={"flex flex-col gap-2"}>
             <h2 className={"text-2xl"}>Storage of personal data</h2>
             <p>
-              To provide my services, I have to store some personal data. This
-              data is never sold, or used for any purposes other than the
+              To provide my services, I have to store some personal data. These
+              data are never sold, or used for any purposes other than the
               provision of my services. These data include:
             </p>
             <ul className={"list-disc ml-5"}>
@@ -90,7 +90,7 @@ export default function Page() {
             </ul>
             <p>
               In case you&apos;re subscribed to Lemon&apos;s Ko-fi, the
-              following personal data is also stored:
+              following personal data are also stored:
             </p>
             <ul className={"list-disc ml-5"}>
               <li>
@@ -135,7 +135,7 @@ export default function Page() {
                 </Link>
               </li>
               <li>
-                Discord user information. This data is publicly available
+                Discord user information. These data are publicly available
                 through the Discord API. For an exhaustive list of these data,
                 please refer to{" "}
                 <Link
@@ -148,7 +148,7 @@ export default function Page() {
                 </Link>
               </li>
               <li>
-                Discord member information. This data is available through the
+                Discord member information. These data are available through the
                 Discord API by anyone that&apos;s in the server. For an
                 exhaustive list of these data, please refer to{" "}
                 <Link
