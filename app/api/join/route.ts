@@ -1,4 +1,4 @@
-import { Routes } from "discord-api-types/v10"
+import { RESTJSONErrorCodes, Routes } from "discord-api-types/v10"
 import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { getSubject } from "@/utils/token"
@@ -6,6 +6,7 @@ import { Variables } from "@/utils/variables"
 import { Prisma } from "@/utils/clients"
 import { checkMember, Discord } from "@/utils/discord"
 import { DateTime } from "luxon"
+import { DiscordAPIError } from "@discordjs/rest"
 
 async function transferInvite(inviter: string, session: Session) {
   const invitee = await Prisma.invitee.findFirst({
@@ -84,12 +85,25 @@ export async function POST(request: Request) {
     return new Response("Couldn't transfer invite", { status: 500 })
   }
 
-  await Discord.put(Routes.guildMember(Variables.guildId, session.user.id), {
-    body: {
-      access_token: session.user.accessToken,
-      roles: [Variables.inviteeRole],
-    },
-  })
+  try {
+    await Discord.put(Routes.guildMember(Variables.guildId, session.user.id), {
+      body: {
+        access_token: session.user.accessToken,
+        roles: [Variables.inviteeRole],
+      },
+    })
+  } catch (e) {
+    console.error(e)
+    if (!(e instanceof DiscordAPIError)) {
+      if (!(e instanceof Error)) {
+        return new Response("Unknown error", { status: 500 })
+      }
+
+      return new Response(`Error: ${e.name}`, { status: 500 })
+    }
+
+    return new Response(e.message, { status: 500 })
+  }
 
   return new Response("Server joined", { status: 200 })
 }
