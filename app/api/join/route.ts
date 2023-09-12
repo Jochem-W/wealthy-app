@@ -1,4 +1,4 @@
-import { RESTJSONErrorCodes, Routes } from "discord-api-types/v10"
+import { Routes } from "discord-api-types/v10"
 import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { getSubject } from "@/utils/token"
