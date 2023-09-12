@@ -85,7 +85,10 @@ export async function POST(request: Request) {
   }
 
   await Discord.put(Routes.guildMember(Variables.guildId, session.user.id), {
-    body: { access_token: session.user.accessToken },
+    body: {
+      access_token: session.user.accessToken,
+      roles: [Variables.inviteeRole],
+    },
   })
 
   return new Response("Server joined", { status: 200 })
