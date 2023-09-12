@@ -61,9 +61,9 @@ export default function Page() {
           <div className={"flex flex-col gap-2"}>
             <h2 className={"text-2xl"}>Your rights</h2>
             <p>
-              You&apos;re free to exercise any of the rights under the General
-              Data Protection Regulation (GDPR). This includes, but isn&apos;t
-              limited to:
+              You&apos;re free to exercise any rights you&apos;re legally
+              entitled to, such as rights under the General Data Protection
+              Regulation (GDPR). This includes, but isn&apos;t limited to:
             </p>
             <ul className={"list-disc ml-5"}>
               <li>Right of access by the data subject.</li>
