@@ -10,6 +10,7 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { JetBrains_Mono } from "next/font/google"
 import { AsyncDiscordUsername } from "@/components/AsyncDiscordUsername"
+import { Prisma } from "@/utils/clients"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
@@ -35,7 +36,20 @@ export default async function Home({
   if (!inviter) {
     return (
       <Container>
-        <p>Invalid token</p>
+        <p>This url expired, has already been used, or is otherwise invalid.</p>
+      </Container>
+    )
+  }
+
+  const user = await Prisma.user.findFirst({
+    where: { discordId: inviter },
+    include: { invitee: true },
+  })
+
+  if (!user || user.invitee) {
+    return (
+      <Container>
+        <p>This url expired, has already been used, or is otherwise invalid.</p>
       </Container>
     )
   }
