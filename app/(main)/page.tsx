@@ -36,7 +36,9 @@ export default async function Home({
   if (!inviter) {
     return (
       <Container>
-        <p>This url expired, has already been used, or is otherwise invalid.</p>
+        <p>
+          This link expired, has already been used, or is otherwise invalid.
+        </p>
       </Container>
     )
   }
@@ -49,7 +51,9 @@ export default async function Home({
   if (!user || user.invitee) {
     return (
       <Container>
-        <p>This url expired, has already been used, or is otherwise invalid.</p>
+        <p>
+          This link expired, has already been used, or is otherwise invalid.
+        </p>
       </Container>
     )
   }
