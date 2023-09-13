@@ -46,15 +46,18 @@ function discordUsername(member: MemberWithUser) {
 
 async function getSubscribers() {
   const users = await Prisma.user.findMany()
+  const invitees = await Prisma.invitee.findMany()
   const members = await getMembers()
   const adminRoles = await getAdminRoles()
   const tiers = new Map<string, TierEntry[]>()
+  const invitedTier = "Invited"
   const unknownTier = "Unknown"
   const expiredTier = "Expired"
   const unsubscribedStaff = "Unsubscribed staff"
 
   tiers.set(unknownTier, [])
   tiers.set(expiredTier, [])
+  tiers.set(invitedTier, [])
   tiers.set(unsubscribedStaff, [])
 
   for (const member of members.values()) {
@@ -64,6 +67,12 @@ async function getSubscribers() {
 
     const user = users.find((u) => u.discordId === member.user.id)
     if (!user) {
+      const invitee = invitees.find((i) => i.discordId === member.user.id)
+      if (invitee) {
+        tiers.get(invitedTier)?.push({ member })
+        continue
+      }
+
       if (adminRoles.some((role) => member.roles.includes(role.id))) {
         tiers.get(unsubscribedStaff)?.push({ member })
         continue
