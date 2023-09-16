@@ -65,9 +65,9 @@ async function getSubscribers() {
       continue
     }
 
+    const invitee = invitees.find((i) => i.discordId === member.user.id)
     const user = users.find((u) => u.discordId === member.user.id)
     if (!user) {
-      const invitee = invitees.find((i) => i.discordId === member.user.id)
       if (invitee) {
         tiers.get(invitedTier)?.push({ member })
         continue
@@ -83,6 +83,11 @@ async function getSubscribers() {
     }
 
     if (expiredMillis(user) < 0) {
+      if (invitee) {
+        tiers.get(invitedTier)?.push({ member })
+        continue
+      }
+
       tiers.get(expiredTier)?.push({ member, user })
     }
 
