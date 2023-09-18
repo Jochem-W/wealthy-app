@@ -1,16 +1,14 @@
 # Set-up build image
-FROM node:20-slim AS builder
+FROM node:20-alpine AS builder
 ENV NODE_ENV=production
 
 WORKDIR /app
 
-# Copy package.json, lockfile, .npmrc and prisma
-COPY ["pnpm-lock.yaml", "package.json", ".npmrc", "prisma", "./"]
+# Copy package.json, lockfile, .npmrc
+COPY ["pnpm-lock.yaml", "package.json", ".npmrc", "./"]
 
 # Install build tools
-RUN apt-get update && \
-    apt-get -y install build-essential openssl python3 && \
-    rm -rf /var/lib/apt/lists/* && \
+RUN apk add --no-cache alpine-sdk python3 && \
     npm install -g pnpm && \
     NODE_ENV=development pnpm install
 
@@ -18,19 +16,13 @@ RUN apt-get update && \
 COPY . .
 
 # Build Next app and remove dev packages
-RUN pnpm prisma generate && \
-    pnpm build && \
+RUN pnpm build && \
     pnpm prune --prod
 
 # Set-up running image
-FROM node:20-slim
+FROM node:20-alpine
 ENV NODE_ENV=production
 WORKDIR /app
-
-# Install openssl
-RUN apt-get update && \
-    apt-get -y install openssl && \
-    rm -rf /var/lib/apt/lists/*
 
 # Copy all files (including source :/)
 COPY --from=builder /app .
