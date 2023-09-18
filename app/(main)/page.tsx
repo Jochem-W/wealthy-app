@@ -10,7 +10,9 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { JetBrains_Mono } from "next/font/google"
 import { AsyncDiscordUsername } from "@/components/AsyncDiscordUsername"
-import { Prisma } from "@/utils/clients"
+import { Drizzle } from "@/utils/clients"
+import { inviteesTable, usersTable } from "@/schema"
+import { eq } from "drizzle-orm"
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
@@ -43,12 +45,11 @@ export default async function Home({
     )
   }
 
-  const user = await Prisma.user.findFirst({
-    where: { discordId: inviter },
-    include: { invitee: true },
-  })
+  const [userData] = await Drizzle.select()
+    .from(usersTable)
+    .leftJoin(inviteesTable, eq(inviteesTable.userId, usersTable.id))
 
-  if (!user || user.invitee) {
+  if (!userData || userData.invitee) {
     return (
       <Container>
         <p>

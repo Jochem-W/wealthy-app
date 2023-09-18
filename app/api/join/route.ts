@@ -3,61 +3,35 @@ import { getServerSession, Session } from "next-auth"
 import { Options } from "@/app/api/auth/[...nextauth]/route"
 import { getSubject } from "@/utils/token"
 import { Variables } from "@/utils/variables"
-import { Prisma } from "@/utils/clients"
 import { checkMember, Discord } from "@/utils/discord"
-import { DateTime } from "luxon"
 import { DiscordAPIError } from "@discordjs/rest"
+import { Drizzle } from "@/utils/clients"
+import { inviteesTable, usersTable } from "@/schema"
+import { eq } from "drizzle-orm"
 
 async function transferInvite(inviter: string, session: Session) {
-  const invitee = await Prisma.invitee.findFirst({
-    where: { discordId: session.user.id },
-  })
+  const [memberData] = await Drizzle.select()
+    .from(usersTable)
+    .where(eq(usersTable.discordId, inviter))
+    .leftJoin(inviteesTable, eq(inviteesTable.userId, usersTable.id))
+
+  // Member not found or has already invited someone
+  if (!memberData || memberData.invitee) {
+    throw new Error("Invalid invite link")
+  }
+
+  const invitee = await Drizzle.select()
+    .from(inviteesTable)
+    .where(eq(inviteesTable.discordId, session.user.id))
 
   // User was already invited
   if (invitee) {
     return
   }
 
-  const member = await Prisma.user.findFirstOrThrow({
-    where: { discordId: inviter },
-    include: { invitee: true },
-  })
-
-  // Member has a spare invite
-  if (!member.invitee) {
-    await Prisma.invitee.create({
-      data: {
-        discordId: session.user.id,
-        user: { connect: { discordId: inviter } },
-      },
-    })
-    return
-  }
-
-  // Member invited a different user first
-  const toKick = await Prisma.user.findFirst({
-    where: {
-      discordId: member.invitee.discordId,
-      lastPaymentTime: {
-        gte: DateTime.now()
-          .minus({ days: 30 + Variables.gracePeriod })
-          .toJSDate(),
-      },
-    },
-  })
-  if (!toKick) {
-    await Discord.delete(
-      Routes.guildMember(Variables.guildId, member.invitee.discordId),
-    )
-  }
-  await Prisma.invitee.delete({
-    where: { discordId: member.invitee.discordId },
-  })
-  await Prisma.invitee.create({
-    data: {
-      discordId: session.user.id,
-      user: { connect: { discordId: inviter } },
-    },
+  await Drizzle.insert(inviteesTable).values({
+    discordId: session.user.id,
+    userId: memberData.user.id,
   })
 }
 

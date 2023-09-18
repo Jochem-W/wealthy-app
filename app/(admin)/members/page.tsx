@@ -1,15 +1,18 @@
-import { Prisma } from "@/utils/clients"
+import { Drizzle } from "@/utils/clients"
 import { Discord, MemberWithUser } from "@/utils/discord"
 import { RESTGetAPIGuildRolesResult, Routes } from "discord-api-types/v10"
 import { Variables } from "@/utils/variables"
-import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
 import { getSubject } from "@/utils/token"
 import { MemberComponent } from "@/components/MemberComponent"
 import { expiredMillis } from "@/utils/misc"
+import { inviteesTable, usersTable } from "@/schema"
 
 type MembersResponse = MemberWithUser[]
-type TierEntry = { member: MemberWithUser; user?: User }
+type TierEntry = {
+  member: MemberWithUser
+  user?: typeof usersTable.$inferSelect
+}
 
 async function getMembers() {
   const apiMembers = (await Discord.get(
@@ -45,8 +48,8 @@ function discordUsername(member: MemberWithUser) {
 }
 
 async function getSubscribers() {
-  const users = await Prisma.user.findMany()
-  const invitees = await Prisma.invitee.findMany()
+  const users = await Drizzle.select().from(usersTable)
+  const invitees = await Drizzle.select().from(inviteesTable)
   const members = await getMembers()
   const adminRoles = await getAdminRoles()
   const tiers = new Map<string, TierEntry[]>()
@@ -101,8 +104,8 @@ async function getSubscribers() {
   for (const value of tiers.values()) {
     value.sort((a, b) => {
       if (a.user && b.user) {
-        return DateTime.fromJSDate(a.user.lastPaymentTime)
-          .diff(DateTime.fromJSDate(b.user.lastPaymentTime))
+        return DateTime.fromJSDate(a.user.lastPaymentTimestamp)
+          .diff(DateTime.fromJSDate(b.user.lastPaymentTimestamp))
           .toMillis()
       }
 

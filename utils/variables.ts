@@ -14,6 +14,7 @@ const model = z
       .optional()
       .transform((arg) => (arg ? new URL(`https://${arg}`) : null)),
     INVITEE_ROLE: z.string(),
+    DATABASE_URL: z.string(),
   })
   .transform((arg) => camelcaseKeys(arg))
 

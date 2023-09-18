@@ -1,9 +1,9 @@
+import { usersTable } from "@/schema"
 import { Variables } from "@/utils/variables"
 import { DateTime } from "luxon"
-import type { User } from "@prisma/client"
 
-export function expiredMillis(user: User) {
-  return DateTime.fromJSDate(user.lastPaymentTime)
+export function expiredMillis(user: typeof usersTable.$inferSelect) {
+  return DateTime.fromJSDate(user.lastPaymentTimestamp)
     .plus({ days: 30 + Variables.gracePeriod })
     .diffNow()
     .toMillis()

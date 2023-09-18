@@ -1,10 +1,13 @@
-import { PrismaClient } from "@prisma/client"
+import { PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js"
+import postgres from "postgres"
+import { Variables } from "./variables"
 
-const globalForPrisma = global as unknown as {
-  prisma: PrismaClient | undefined
+const globalForDrizzle = global as unknown as {
+  drizzle: PostgresJsDatabase | undefined
 }
-export const Prisma = globalForPrisma.prisma ?? new PrismaClient()
+export const Drizzle =
+  globalForDrizzle.drizzle ?? drizzle(postgres(Variables.databaseUrl))
 
 if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = Prisma
+  globalForDrizzle.drizzle = Drizzle
 }

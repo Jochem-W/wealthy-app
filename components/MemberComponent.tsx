@@ -1,13 +1,16 @@
 import { MemberWithUser, displayAvatarUrl } from "@/utils/discord"
 import { expiredMillis } from "@/utils/misc"
-import type { User } from "@prisma/client"
 import { DateTime } from "luxon"
 import Image from "next/image"
 import { DiscordUsername } from "@/components/DiscordUsername"
 import { EmailSpoiler } from "@/components/EmailSpoiler"
 import { JetBrains_Mono } from "next/font/google"
+import { usersTable } from "@/schema"
 
-export type TierEntry = { member: MemberWithUser; user?: User }
+export type TierEntry = {
+  member: MemberWithUser
+  user?: typeof usersTable.$inferSelect
+}
 
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
@@ -16,7 +19,7 @@ export const MemberComponent = ({
   user = undefined,
 }: {
   readonly member: MemberWithUser
-  readonly user?: User
+  readonly user?: typeof usersTable.$inferSelect
 }) => {
   let bg = ""
   if (user && expiredMillis(user) < 0) {
@@ -48,12 +51,12 @@ export const MemberComponent = ({
           <div className="group relative w-fit">
             <span className="absolute left-0 visible opacity-100 group-hover:invisible group-hover:opacity-0 transition-all">
               Last paid{" "}
-              {DateTime.fromJSDate(user.lastPaymentTime).toRelative({
+              {DateTime.fromJSDate(user.lastPaymentTimestamp).toRelative({
                 unit: ["days", "hours", "minutes", "seconds"],
               })}
             </span>
             <span className="w-max invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all">
-              {DateTime.fromJSDate(user.lastPaymentTime).toRFC2822()}
+              {DateTime.fromJSDate(user.lastPaymentTimestamp).toRFC2822()}
             </span>
           </div>
         </div>
