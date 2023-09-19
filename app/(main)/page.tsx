@@ -47,6 +47,7 @@ export default async function Home({
 
   const [userData] = await Drizzle.select()
     .from(usersTable)
+    .where(eq(usersTable.discordId, inviter))
     .leftJoin(inviteesTable, eq(inviteesTable.userId, usersTable.id))
 
   if (!userData || userData.invitee) {
