@@ -20,7 +20,7 @@ async function transferInvite(inviter: string, session: Session) {
     throw new Error("Invalid invite link")
   }
 
-  const invitee = await Drizzle.select()
+  const [invitee] = await Drizzle.select()
     .from(inviteesTable)
     .where(eq(inviteesTable.discordId, session.user.id))
 
