@@ -182,7 +182,7 @@ export default function Page() {
             <h2 className={"text-2xl"}>Your data and third-party services</h2>
             <p>
               To protect myself, my services, and the end-user, I make use of
-              various third-party services and tools. The only services that
+              various third-party services and tools. The only service that
               makes use of your data is Cloudflare, which is essentially a
               middle-man between my services and the end-user, and provides
               various benefits to me.
