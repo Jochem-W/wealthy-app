@@ -1,5 +1,5 @@
 # Set-up build image
-FROM node:20-alpine AS builder
+FROM node:21-alpine AS builder
 ENV NODE_ENV=production
 
 WORKDIR /app
@@ -20,7 +20,7 @@ RUN pnpm build && \
     pnpm prune --prod
 
 # Set-up running image
-FROM node:20-alpine
+FROM node:21-alpine
 ENV NODE_ENV=production
 WORKDIR /app
 
