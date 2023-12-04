@@ -39,7 +39,7 @@ export default async function Home({
     return (
       <Container>
         <p>
-          This link expired, has already been used, or is otherwise invalid.
+          This link has expired, has already been used, or is otherwise invalid.
         </p>
       </Container>
     )
@@ -54,7 +54,7 @@ export default async function Home({
     return (
       <Container>
         <p>
-          This link expired, has already been used, or is otherwise invalid.
+          This link has expired, has already been used, or is otherwise invalid.
         </p>
       </Container>
     )
