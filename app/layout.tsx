@@ -1,4 +1,3 @@
-import Link from "next/link"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
 
@@ -13,7 +12,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} flex min-h-[100svh] flex-col items-center justify-between gap-4 p-4`}
+      className={`${inter.className} flex min-h-[100svh] flex-col items-center justify-between gap-4`}
     >
       <body className={"flex w-[100%] flex-col items-center gap-4"}>
         <header>
@@ -27,16 +26,7 @@ export default function RootLayout({
             "flex flex-col items-center justify-center gap-2 text-center min-[440px]:flex-row"
           }
         >
-          <Link
-            href={"/privacy"}
-            className={
-              "break-words underline transition-colors hover:text-blue-500"
-            }
-          >
-            Privacy Policy
-          </Link>
-          <span className={"hidden min-[440px]:inline"}>•</span>
-          <span>Made by Lucas</span>
+          <span>&copy; lucasfloof 2023-2024</span>
         </footer>
       </body>
     </html>
