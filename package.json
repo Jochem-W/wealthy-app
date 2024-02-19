@@ -50,76 +50,13 @@
   },
   "eslintConfig": {
     "extends": [
-      "plugin:react/all",
-      "eslint:all",
+      "plugin:react/recommended",
+      "eslint:recommended",
       "next/core-web-vitals",
       "plugin:@typescript-eslint/recommended",
       "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      "plugin:@typescript-eslint/strict",
       "prettier"
     ],
-    "rules": {
-      "@typescript-eslint/non-nullable-type-assertion-style": "off",
-      "@typescript-eslint/consistent-type-definitions": [
-        "warn",
-        "type"
-      ],
-      "dot-notation": "off",
-      "func-style": "off",
-      "no-void": [
-        2,
-        {
-          "allowAsStatement": true
-        }
-      ],
-      "sort-imports": "off",
-      "one-var": "off",
-      "max-statements": "off",
-      "no-console": "off",
-      "no-ternary": "off",
-      "camelcase": "off",
-      "new-cap": "off",
-      "id-length": "off",
-      "sort-keys": "off",
-      "capitalized-comments": "off",
-      "multiline-comment-style": "off",
-      "no-undefined": "off",
-      "no-magic-numbers": "off",
-      "no-warning-comments": "off",
-      "max-lines-per-function": "off",
-      "no-use-before-define": "off",
-      "no-await-in-loop": "off",
-      "no-continue": "off",
-      "no-duplicate-imports": "off",
-      "no-bitwise": "off",
-      "no-return-await": "off",
-      "lines-between-class-members": "off",
-      "init-declarations": "off",
-      "max-classes-per-file": "off",
-      "no-plusplus": "off",
-      "max-depth": "off",
-      "class-methods-use-this": "off",
-      "spaced-comment": "off",
-      "react/jsx-filename-extension": "off",
-      "react/jsx-no-literals": "off",
-      "react/jsx-curly-brace-presence": "off",
-      "react/jsx-sort-props": "off",
-      "react/self-closing-comp": "off",
-      "react/forbid-component-props": "off",
-      "react/jsx-max-depth": "off",
-      "react/require-default-props": [
-        2,
-        {
-          "functions": "defaultArguments"
-        }
-      ],
-      "react/function-component-definition": [
-        2,
-        {
-          "namedComponents": "arrow-function"
-        }
-      ]
-    },
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
