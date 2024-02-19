@@ -49,12 +49,15 @@ export async function GET() {
         startOutputType: "utc",
         endInputType: "utc",
         endOutputType: "utc",
+        url: new URL(id, "https://discord.com/users/").toString(),
       }
 
       const user = users.get(id)
       if (user) {
         event.title = `${user.global_name ?? user.username}'s Birthday`
-        event.description = `Username: ${user.username}\n${event.description}`
+        if (user.global_name) {
+          event.description = `Username: ${user.username}`
+        }
       }
 
       return event
