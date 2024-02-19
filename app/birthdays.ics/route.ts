@@ -59,7 +59,7 @@ export async function GET() {
 
       return event
     }),
-    { calName: guild.name },
+    { calName: `${guild.name} Birthdays` },
   )
 
   if (error || !value) {
