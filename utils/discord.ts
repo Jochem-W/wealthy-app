@@ -14,9 +14,9 @@ if (process.env.NODE_ENV !== "production") {
   globalForDiscord.discord = Discord
 }
 
-export function displayAvatarUrl(user: APIUser) {
+export function displayAvatarUrl(user: APIUser, forceStatic: boolean = true) {
   if (user.avatar) {
-    return Discord.cdn.avatar(user.id, user.avatar)
+    return Discord.cdn.avatar(user.id, user.avatar, { forceStatic })
   }
 
   if (user.discriminator !== "0") {
