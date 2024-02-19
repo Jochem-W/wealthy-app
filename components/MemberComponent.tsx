@@ -28,7 +28,7 @@ export const MemberComponent = ({
 
   return (
     <div className={`flex flex-col gap-2 p-2 ${bg}`}>
-      <div className={"flex gap-4 items-center"}>
+      <div className={"flex items-center gap-4"}>
         <Image
           className={"rounded-full"}
           src={displayAvatarUrl(member.user)}
@@ -49,13 +49,13 @@ export const MemberComponent = ({
           <span className={mono.className}>{user.name}</span>
           <EmailSpoiler email={user.email}></EmailSpoiler>
           <div className="group relative w-fit">
-            <span className="absolute left-0 visible opacity-100 group-hover:invisible group-hover:opacity-0 transition-all">
+            <span className="visible absolute left-0 opacity-100 transition-all group-hover:invisible group-hover:opacity-0">
               Last paid{" "}
               {DateTime.fromJSDate(user.lastPaymentTimestamp).toRelative({
                 unit: ["days", "hours", "minutes", "seconds"],
               })}
             </span>
-            <span className="w-max invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all">
+            <span className="invisible w-max opacity-0 transition-all group-hover:visible group-hover:opacity-100">
               {DateTime.fromJSDate(user.lastPaymentTimestamp).toRFC2822()}
             </span>
           </div>

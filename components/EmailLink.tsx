@@ -18,7 +18,7 @@ export const EmailLink = ({
   return (
     <Link href={`mailto:${email}`} className={className}>
       <span
-        className={`${mono.className} underline hover:text-blue-500 transition-colors`}
+        className={`${mono.className} underline transition-colors hover:text-blue-500`}
       >
         {username}
         <wbr />@{domain}

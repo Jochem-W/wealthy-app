@@ -18,7 +18,7 @@ export const EmailSpoiler = ({ email }: { readonly email: string }) => {
       {hidden ? (
         <span
           className={
-            "whitespace-pre transition-colors bg-neutral-500 bg-opacity-25 hover:bg-opacity-50"
+            "whitespace-pre bg-neutral-500 bg-opacity-25 transition-colors hover:bg-opacity-50"
           }
         >
           {" ".repeat(email.length)}

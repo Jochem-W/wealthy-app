@@ -13,24 +13,24 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.className} flex flex-col items-center justify-between min-h-[100svh] p-4 gap-4`}
+      className={`${inter.className} flex min-h-[100svh] flex-col items-center justify-between gap-4 p-4`}
     >
-      <body className={"flex flex-col gap-4 w-[100%] items-center"}>
+      <body className={"flex w-[100%] flex-col items-center gap-4"}>
         <header>
           {/*<h1 className={"text-6xl text-center"}>*/}
           {/*  Suspiciously Wealthy Furries*/}
           {/*</h1>*/}
         </header>
-        <main className={"flex flex-col container gap-8"}>{children}</main>
+        <main className={"container flex flex-col gap-8"}>{children}</main>
         <footer
           className={
-            "flex flex-col min-[440px]:flex-row gap-2 items-center text-center justify-center"
+            "flex flex-col items-center justify-center gap-2 text-center min-[440px]:flex-row"
           }
         >
           <Link
             href={"/privacy"}
             className={
-              "underline hover:text-blue-500 transition-colors break-words"
+              "break-words underline transition-colors hover:text-blue-500"
             }
           >
             Privacy Policy

@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react"
 export const Container = ({ children }: PropsWithChildren) => (
   <main
     className={
-      "flex flex-col items-center w-fit rounded-2xl gap-8 justify-center text-center"
+      "flex w-fit flex-col items-center justify-center gap-8 rounded-2xl text-center"
     }
   >
     <h1 className={"text-4xl min-[340px]:text-5xl min-[400px]:text-6xl"}>
