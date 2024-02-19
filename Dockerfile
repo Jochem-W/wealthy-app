@@ -1,5 +1,5 @@
 # Set-up build image
-FROM node:21-alpine AS builder
+FROM node:21-alpine
 ENV NODE_ENV=production
 
 WORKDIR /app
@@ -15,17 +15,5 @@ RUN apk add --no-cache alpine-sdk python3 && \
 # Copy all files to working directory
 COPY . .
 
-# Build Next app and remove dev packages
-RUN pnpm build && \
-    pnpm prune --prod
-
-# Set-up running image
-FROM node:21-alpine
-ENV NODE_ENV=production
-WORKDIR /app
-
-# Copy all files (including source :/)
-COPY --from=builder /app .
-
-# Run
-CMD ["npm", "start"]
+# Build and run
+CMD pnpm build ; pnpm start
