@@ -26,6 +26,8 @@ const monthNames = [
   "December",
 ]
 
+export const revalidate = 3600
+
 export default async function Page() {
   const users = new Map<string, APIUser>()
 
