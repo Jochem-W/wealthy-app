@@ -5,7 +5,6 @@ import { Variables } from "@/utils/variables"
 import {
   APIUser,
   Routes,
-  RESTGetAPIGuildResult,
   RESTGetAPIGuildMembersResult,
 } from "discord-api-types/v10"
 import { DateTime } from "luxon"
@@ -30,10 +29,6 @@ export const revalidate = 3600
 
 export default async function Page() {
   const users = new Map<string, APIUser>()
-
-  const guild = (await Discord.get(
-    Routes.guild(Variables.guildId),
-  )) as RESTGetAPIGuildResult
 
   const members = (await Discord.get(Routes.guildMembers(Variables.guildId), {
     query: new URLSearchParams({ limit: "1000" }),
@@ -104,7 +99,6 @@ export default async function Page() {
 
   return (
     <section className="flex flex-col gap-4">
-      <h1>{guild.name} Birthdays</h1>
       {months.map((month, i) => {
         return (
           <section key={`m${i}`} className="flex flex-col items-center gap-2">
