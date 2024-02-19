@@ -15,5 +15,8 @@ RUN apk add --no-cache alpine-sdk python3 && \
 # Copy all files to working directory
 COPY . .
 
-# Build and run
-CMD pnpm build ; pnpm start
+# Compile separately
+RUN pnpm next experimental-compile
+
+# Generate and run
+CMD pnpm next experimental-generate ; pnpm start
