@@ -30,6 +30,7 @@ export async function GET() {
       start: [2023, month, day],
       end: [2023, month, day],
       recurrenceRule: `FREQ=YEARLY;INTERVAL=1;BYMONTH=${month};BYMONTHDAY=${day}`,
+      uid: id,
     })),
   )
 
