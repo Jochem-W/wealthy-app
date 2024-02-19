@@ -38,5 +38,7 @@ export async function GET() {
     return new NextResponse("Internal error", { status: 500 })
   }
 
-  return new NextResponse(value)
+  return new NextResponse(value, {
+    headers: { "Content-Type": "text/calendar" },
+  })
 }
