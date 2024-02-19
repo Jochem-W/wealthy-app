@@ -9,6 +9,12 @@ export const usersTable = pgTable("user", {
   discordId: text("discordId").unique(),
 })
 
+export const birthdaysTable = pgTable("birthday", {
+  id: text("id").primaryKey(),
+  month: integer("month").notNull(),
+  day: integer("day").notNull(),
+})
+
 export const inviteesTable = pgTable("invitee", {
   discordId: text("discordId").primaryKey(),
   userId: integer("userId")
