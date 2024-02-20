@@ -169,7 +169,7 @@ export default async function Page() {
                                   width={24}
                                   height={24}
                                 ></Image>
-                                <span className="truncate">
+                                <span className=" overflow-hidden text-clip whitespace-nowrap sm:text-ellipsis">
                                   {displayName(user)}
                                 </span>
                               </section>
