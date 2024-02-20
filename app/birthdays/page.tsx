@@ -145,7 +145,7 @@ export default async function Page() {
                       <h3 className={date.weekday === 7 ? "text-red-400" : ""}>
                         {date.day}
                       </h3>
-                      <section className="flex min-h-16 max-w-full flex-col items-start gap-1 px-1">
+                      <section className="flex min-h-16 max-w-full flex-col items-start gap-1 px-1 text-xs sm:text-base">
                         {birthdays
                           .get(`${date.month}-${date.day}`)
                           ?.map((user) => {
@@ -153,10 +153,17 @@ export default async function Page() {
                               <section
                                 key={`${i}-${user.id}`}
                                 title={displayName(user)}
-                                className="w-15 flex max-w-full gap-1"
+                                className="w-15 flex max-w-full items-center gap-1"
                               >
                                 <Image
-                                  className="rounded-full"
+                                  className="rounded-full sm:hidden"
+                                  alt={`${displayName(user)}'s avatar`}
+                                  src={displayAvatarUrl(user)}
+                                  width={16}
+                                  height={16}
+                                ></Image>
+                                <Image
+                                  className="hidden rounded-full sm:block"
                                   alt={`${displayName(user)}'s avatar`}
                                   src={displayAvatarUrl(user)}
                                   width={24}
