@@ -162,7 +162,7 @@ export default async function Page() {
                                   width={24}
                                   height={24}
                                 ></Image>
-                                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                                <span className="truncate">
                                   {displayName(user)}
                                 </span>
                               </section>
