@@ -9,6 +9,7 @@ import {
   RESTGetAPIGuildResult,
 } from "discord-api-types/v10"
 import { DateTime } from "luxon"
+import { Metadata } from "next"
 import Image from "next/image"
 
 const monthNames = [
@@ -31,6 +32,14 @@ function displayName(user: APIUser) {
 }
 
 export const revalidate = 3600
+
+export async function generateMetadata(): Promise<Metadata> {
+  const guild = (await Discord.get(
+    Routes.guild(Variables.guildId),
+  )) as RESTGetAPIGuildResult
+
+  return { title: `${guild.name} | Birthday Calendar ${DateTime.now().year}` }
+}
 
 export default async function Page() {
   const guild = (await Discord.get(
@@ -136,7 +145,7 @@ export default async function Page() {
                       <h3 className={date.weekday === 7 ? "text-red-400" : ""}>
                         {date.day}
                       </h3>
-                      <section className="flex min-h-16 max-w-full flex-col items-start gap-1">
+                      <section className="flex min-h-16 max-w-full flex-col items-start gap-1 px-1">
                         {birthdays
                           .get(`${date.month}-${date.day}`)
                           ?.map((user) => {
