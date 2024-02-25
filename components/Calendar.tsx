@@ -55,6 +55,7 @@ export default function Calendar({
   const [today, setToday] = useState(
     DateTime.fromMillis(initialToday, { zone: "utc" }),
   )
+  const [scroll, setScroll] = useState(today.month - 1)
   const scrollRef = useRef<HTMLDivElement>(null)
   const todayRef = useRef<HTMLDivElement>(null)
 
@@ -68,7 +69,9 @@ export default function Calendar({
         return
       }
 
-      scrollRef.current?.scrollBy({ left: evt.deltaY, behavior: "instant" })
+      setScroll((prev) =>
+        Math.max(Math.min(prev + Math.sign(evt.deltaY) * 1, 12), 0),
+      )
     }
 
     window.addEventListener("wheel", listener)
@@ -85,10 +88,12 @@ export default function Calendar({
     return () => clearTimeout(timeout)
   }, [today])
 
-  // Scroll to the current date on date change
   useEffect(() => {
-    todayRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
-  }, [today])
+    scrollRef.current?.children[scroll]?.scrollIntoView({ behavior: "smooth" })
+  }, [scroll])
+
+  // Scroll to the current date on date change
+  useEffect(() => setScroll(today.month - 1), [today])
 
   const months = getYear(today.year)
 
