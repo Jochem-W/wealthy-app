@@ -135,33 +135,37 @@ export default async function Page({
 
   return (
     <>
-      <h1 className="text-5xl">Discord Members</h1>
-      {[...subscribers.entries()]
-        .filter(([, values]) => values.length > 0)
-        .map(([key, values]) => (
-          <div className={"flex flex-col gap-2"} key={key}>
-            <h2 className={"text-3xl"}>{key}</h2>
-            <div
-              className={
-                "grid grid-cols-[repeat(auto-fill,_minmax(min(350px,_100%),_1fr))] gap-2"
-              }
-            >
-              {values.map(({ member, user }) => (
-                <div className="flex flex-col gap-2" key={member.user.id}>
-                  <div className={"h-0.5 bg-neutral-500 bg-opacity-30"}></div>
-                  {user ? (
-                    <MemberComponent
-                      member={member}
-                      user={user}
-                    ></MemberComponent>
-                  ) : (
-                    <MemberComponent member={member}></MemberComponent>
-                  )}
-                </div>
-              ))}
+      <header className="mt-2">
+        <h1 className="text-5xl">Discord Members</h1>
+      </header>
+      <main className="container flex flex-col gap-8">
+        {[...subscribers.entries()]
+          .filter(([, values]) => values.length > 0)
+          .map(([key, values]) => (
+            <div className={"flex flex-col gap-2"} key={key}>
+              <h2 className={"text-3xl"}>{key}</h2>
+              <div
+                className={
+                  "grid grid-cols-[repeat(auto-fill,_minmax(min(350px,_100%),_1fr))] gap-2"
+                }
+              >
+                {values.map(({ member, user }) => (
+                  <div className="flex flex-col gap-2" key={member.user.id}>
+                    <div className={"h-0.5 bg-neutral-500 bg-opacity-30"}></div>
+                    {user ? (
+                      <MemberComponent
+                        member={member}
+                        user={user}
+                      ></MemberComponent>
+                    ) : (
+                      <MemberComponent member={member}></MemberComponent>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+      </main>
     </>
   )
 }

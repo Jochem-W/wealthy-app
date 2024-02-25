@@ -92,10 +92,12 @@ export default function Calendar({
 
   return (
     <>
-      <h1 className="text-center text-3xl">
-        {guild.name} Birthday Calendar {today.year}
-      </h1>
-      <section
+      <header className="mt-2">
+        <h1 className="text-center text-3xl">
+          {guild.name} Birthday Calendar {today.year}
+        </h1>
+      </header>
+      <main
         ref={scrollRef}
         className="container flex snap-x snap-mandatory overflow-x-scroll"
       >
@@ -167,7 +169,7 @@ export default function Calendar({
             </section>
           </section>
         ))}
-      </section>
+      </main>
     </>
   )
 }
