@@ -101,7 +101,7 @@ export default function Calendar({
       </header>
       <main
         ref={scrollRef}
-        className="container flex snap-x snap-mandatory overflow-x-scroll"
+        className="container flex snap-x snap-mandatory gap-20 overflow-x-scroll"
       >
         {months.map((month, i) => (
           <section
