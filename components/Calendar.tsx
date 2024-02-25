@@ -134,7 +134,7 @@ export default function Calendar({
                     >
                       {date.day}
                     </h3>
-                    <section className="flex min-h-16 max-w-full flex-col items-start gap-1 px-1 pb-1 text-xs sm:text-base">
+                    <section className="flex max-w-full flex-col items-start gap-1 px-1 pb-1 text-xs sm:text-base">
                       {birthdays
                         .get(`${date.month}-${date.day}`)
                         ?.map((user) => (
