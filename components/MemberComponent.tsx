@@ -1,4 +1,4 @@
-import { MemberWithUser, displayAvatarUrl } from "@/utils/discord"
+import { MemberWithUser } from "@/utils/discord"
 import { expiredMillis } from "@/utils/misc"
 import { DateTime } from "luxon"
 import Image from "next/image"
@@ -6,6 +6,7 @@ import { DiscordUsername } from "@/components/DiscordUsername"
 import { EmailSpoiler } from "@/components/EmailSpoiler"
 import { JetBrains_Mono } from "next/font/google"
 import { usersTable } from "@/schema"
+import { displayAvatarUrl } from "@/utils/discordClient"
 
 export type TierEntry = {
   member: MemberWithUser
