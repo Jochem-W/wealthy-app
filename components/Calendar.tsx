@@ -85,10 +85,10 @@ export default function Calendar({
     return () => clearTimeout(timeout)
   }, [today])
 
-  // Scroll to the current date on load
+  // Scroll to the current date on date change
   useEffect(() => {
     todayRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
-  }, [todayRef])
+  }, [today])
 
   const months = getYear(today.year)
 
