@@ -86,7 +86,9 @@ export default function Calendar({
   }, [today])
 
   // Scroll to the current date on load
-  useEffect(() => todayRef.current?.scrollIntoView(), [todayRef])
+  useEffect(() => {
+    todayRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
+  }, [todayRef])
 
   const months = getYear(today.year)
 
