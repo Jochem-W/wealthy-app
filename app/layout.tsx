@@ -20,7 +20,7 @@ export default function RootLayout({
           {/*  Suspiciously Wealthy Furries*/}
           {/*</h1>*/}
         </header>
-        <main className={"container flex flex-col gap-8"}>{children}</main>
+        <main className={"container flex flex-col gap-4"}>{children}</main>
         <footer
           className={
             "flex flex-col items-center justify-center gap-2 text-center min-[440px]:flex-row"
