@@ -70,7 +70,7 @@ export default function Calendar({
       }
 
       setScroll((prev) =>
-        Math.max(Math.min(prev + Math.sign(evt.deltaY) * 1, 12), 0),
+        Math.max(Math.min(prev + Math.sign(evt.deltaY) * 1, 11), 0),
       )
     }
 
