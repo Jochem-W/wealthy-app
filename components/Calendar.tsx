@@ -58,15 +58,19 @@ export default function Calendar({
   const scrollRef = useRef<HTMLDivElement>(null)
   const todayRef = useRef<HTMLDivElement>(null)
 
-  function listener(evt: WheelEvent) {
-    scrollRef.current?.scrollBy({ left: evt.deltaY, behavior: "instant" })
-  }
-
   // Set the date/time to the current time on load
   useEffect(() => setToday(DateTime.now()), [])
 
   // Scroll the calendar horizontally if the user scrolls vertically
   useEffect(() => {
+    function listener(evt: WheelEvent) {
+      if (evt.shiftKey) {
+        return
+      }
+
+      scrollRef.current?.scrollBy({ left: evt.deltaY, behavior: "instant" })
+    }
+
     window.addEventListener("wheel", listener)
     return () => window.removeEventListener("wheel", listener)
   }, [])
