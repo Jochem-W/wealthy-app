@@ -105,7 +105,12 @@ export default function Calendar({
             className="flex w-full shrink-0 snap-center flex-col items-center gap-2"
           >
             <h2 className="text-2xl">{monthNames[i]}</h2>
-            <section className="grid w-full grid-cols-7 justify-items-center">
+            <section
+              className="grid h-full w-full grid-cols-7 justify-items-center"
+              style={{
+                gridTemplateRows: `auto repeat(${month.length}, minmax(0, 1fr))`,
+              }}
+            >
               <span>M</span>
               <span>T</span>
               <span>W</span>
@@ -127,7 +132,7 @@ export default function Calendar({
                     >
                       {date.day}
                     </h3>
-                    <section className="p flex min-h-16 max-w-full flex-col items-start gap-1 px-1 text-xs sm:text-base">
+                    <section className="flex min-h-16 max-w-full flex-col items-start gap-1 px-1 pb-1 text-xs sm:text-base">
                       {birthdays
                         .get(`${date.month}-${date.day}`)
                         ?.map((user) => (
