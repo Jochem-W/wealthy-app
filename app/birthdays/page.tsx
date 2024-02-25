@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
     Routes.guild(Variables.guildId),
   )) as RESTGetAPIGuildResult
 
-  return { title: `${guild.name} | Birthday Calendar ${DateTime.now().year}` }
+  return { title: `${guild.name} | Birthday Calendar` }
 }
 
 async function getBirthdays() {
