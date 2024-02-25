@@ -13,15 +13,3 @@ export const Discord =
 if (process.env.NODE_ENV !== "production") {
   globalForDiscord.discord = Discord
 }
-
-export function displayAvatarUrl(user: APIUser, forceStatic: boolean = true) {
-  if (user.avatar) {
-    return Discord.cdn.avatar(user.id, user.avatar, { forceStatic })
-  }
-
-  if (user.discriminator !== "0") {
-    return Discord.cdn.defaultAvatar(parseInt(user.discriminator, 10) % 5)
-  }
-
-  return Discord.cdn.defaultAvatar(Number((BigInt(user.id) >> 22n) % 6n))
-}
