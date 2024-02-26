@@ -62,7 +62,7 @@ export default function Calendar({
   // Set the date/time to the current time on load
   useEffect(() => setToday(DateTime.now()), [])
 
-  // Scroll the calendar horizontally if the user scrolls vertically
+  // Update index when the wheel is used
   useEffect(() => {
     function listener(evt: WheelEvent) {
       if (evt.shiftKey) {
@@ -88,6 +88,8 @@ export default function Calendar({
     return () => clearTimeout(timeout)
   }, [today])
 
+  // Scroll to the current index when the index changes
+  // Debounce?
   useEffect(() => {
     scrollRef.current?.children[scroll]?.scrollIntoView({
       behavior: "smooth",
@@ -96,7 +98,7 @@ export default function Calendar({
     })
   }, [scroll])
 
-  // Scroll to the current date on date change
+  // Update the index when the day changes
   useEffect(() => setScroll(today.month - 1), [today])
 
   const months = getYear(today.year)
