@@ -90,13 +90,14 @@ export default function Calendar({
 
   // Scroll to the current index when the index changes
   // Debounce?
-  useEffect(() => {
-    scrollRef.current?.children[scroll]?.scrollIntoView({
-      behavior: "smooth",
-      block: "end",
-      inline: "center",
-    })
-  }, [scroll])
+  useEffect(
+    () =>
+      scrollRef.current?.children[scroll]?.scrollIntoView({
+        block: "end",
+        inline: "center",
+      }),
+    [scroll],
+  )
 
   // Update the index when the day changes
   useEffect(() => setScroll(today.month - 1), [today])
@@ -112,7 +113,7 @@ export default function Calendar({
       </header>
       <main
         ref={scrollRef}
-        className="container flex snap-x snap-mandatory gap-20 overflow-x-scroll"
+        className="container flex snap-x snap-mandatory gap-20 overflow-x-scroll scroll-smooth"
       >
         {months.map((month, i) => (
           <section
