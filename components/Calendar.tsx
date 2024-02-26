@@ -89,7 +89,11 @@ export default function Calendar({
   }, [today])
 
   useEffect(() => {
-    scrollRef.current?.children[scroll]?.scrollIntoView({ behavior: "smooth" })
+    scrollRef.current?.children[scroll]?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "center",
+    })
   }, [scroll])
 
   // Scroll to the current date on date change
