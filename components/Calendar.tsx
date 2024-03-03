@@ -95,6 +95,7 @@ export default function Calendar({
       scrollRef.current?.children[scroll]?.scrollIntoView({
         block: "end",
         inline: "center",
+        behavior: "instant",
       }),
     [scroll],
   )
@@ -113,7 +114,7 @@ export default function Calendar({
       </header>
       <main
         ref={scrollRef}
-        className="container flex snap-x snap-mandatory gap-20 overflow-x-scroll scroll-smooth"
+        className="container flex snap-x snap-mandatory gap-20 overflow-x-scroll"
       >
         {months.map((month, i) => (
           <section
