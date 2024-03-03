@@ -118,7 +118,7 @@ export default function Calendar({
         {months.map((month, i) => (
           <section
             key={`m${i}`}
-            className="flex w-full shrink-0 snap-center flex-col items-center gap-2"
+            className="flex w-full shrink-0 snap-center snap-always flex-col items-center gap-2"
           >
             <h2 className="text-2xl">{monthNames[i]}</h2>
             <section
