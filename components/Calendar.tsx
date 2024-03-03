@@ -139,7 +139,7 @@ export default function Calendar({
                   <section
                     ref={date.hasSame(today, "day") ? todayRef : undefined}
                     key={`${date.year}-${date.month}-${date.day}`}
-                    className={`${date.month !== i + 1 ? "opacity-15" : "before:opacity-15"} ${date.hasSame(today, "day") ? "bg-neutral-100 dark:bg-neutral-950" : ""} flex w-full flex-col items-center gap-1 before:block before:h-px before:w-full before:bg-black dark:before:bg-white`}
+                    className={`${date.month !== i + 1 ? "opacity-15" : "before:opacity-15"} ${date.hasSame(today, "day") ? "bg-neutral-100 dark:bg-neutral-900" : ""} flex w-full flex-col items-center gap-1 before:block before:h-px before:w-full before:bg-black dark:before:bg-white`}
                   >
                     <h3
                       className={
