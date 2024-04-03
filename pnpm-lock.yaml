@@ -21,8 +21,8 @@ dependencies:
     specifier: ^0.37.77
     version: 0.37.77
   drizzle-orm:
-    specifier: ^0.30.6
-    version: 0.30.6(@types/react@18.2.73)(postgres@3.4.4)(react@18.2.0)
+    specifier: ^0.30.7
+    version: 0.30.7(@types/react@18.2.73)(postgres@3.4.4)(react@18.2.0)
   ics:
     specifier: ^3.7.2
     version: 3.7.2
@@ -1365,8 +1365,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /drizzle-orm@0.30.6(@types/react@18.2.73)(postgres@3.4.4)(react@18.2.0):
-    resolution: {integrity: sha512-8RgNUmY7J03GRuRgBV5SaJNbYgLVPjdSWNS/bRkIMIHt2TFCA439lJsNpqYX8asyKMqkw8ceBiamUnCIXZIt9w==}
+  /drizzle-orm@0.30.7(@types/react@18.2.73)(postgres@3.4.4)(react@18.2.0):
+    resolution: {integrity: sha512-9qefSZQlu2fO2qv24piHyWFWcxcOY15//0v4j8qomMqaxzipNoG+fUBrQ7Ftk7PY7APRbRdn/nkEXWxiI4a8mw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -1380,7 +1380,7 @@ packages:
       '@types/pg': '*'
       '@types/react': '>=18'
       '@types/sql.js': '*'
-      '@vercel/postgres': '*'
+      '@vercel/postgres': '>=0.8.0'
       '@xata.io/client': '*'
       better-sqlite3: '>=7'
       bun-types: '*'
