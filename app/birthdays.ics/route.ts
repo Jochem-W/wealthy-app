@@ -34,34 +34,34 @@ export async function GET() {
   const dates = await Drizzle.select().from(birthdaysTable)
 
   const { error, value } = createEvents(
-    dates.map(({ id, month, day }) => {
-      const event: EventAttributes = {
-        title: `${id}'s Birthday`,
-        start: [2023, month, day],
-        end: [2023, month, day],
-        recurrenceRule: `FREQ=YEARLY;INTERVAL=1;BYMONTH=${month};BYMONTHDAY=${day}`,
-        uid: id,
-        description: `User ID: ${id}`,
-        status: "CONFIRMED",
-        busyStatus: "FREE",
-        transp: "TRANSPARENT",
-        startInputType: "utc",
-        startOutputType: "utc",
-        endInputType: "utc",
-        endOutputType: "utc",
-        url: new URL(id, "https://discord.com/users/").toString(),
-      }
+    dates
+      .filter(({ id }) => users.has(id))
+      .map(({ id, month, day }) => {
+        const event: EventAttributes = {
+          title: `${id}'s Birthday`,
+          start: [2023, month, day],
+          end: [2023, month, day],
+          recurrenceRule: `FREQ=YEARLY;INTERVAL=1;BYMONTH=${month};BYMONTHDAY=${day}`,
+          uid: id,
+          description: `User ID: ${id}`,
+          status: "CONFIRMED",
+          busyStatus: "FREE",
+          transp: "TRANSPARENT",
+          startInputType: "utc",
+          startOutputType: "utc",
+          endInputType: "utc",
+          endOutputType: "utc",
+          url: new URL(id, "https://discord.com/users/").toString(),
+        }
 
-      const user = users.get(id)
-      if (user) {
+        const user = users.get(id) as APIUser
         event.title = `${user.global_name ?? user.username}'s Birthday`
         if (user.global_name) {
           event.description = `Username: ${user.username}`
         }
-      }
 
-      return event
-    }),
+        return event
+      }),
     { calName: `${guild.name} Birthdays` },
   )
 
