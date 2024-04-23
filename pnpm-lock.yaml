@@ -18,8 +18,8 @@ dependencies:
     specifier: ^1.1.11
     version: 1.1.11
   discord-api-types:
-    specifier: ^0.37.77
-    version: 0.37.77
+    specifier: ^0.37.81
+    version: 0.37.81
   drizzle-orm:
     specifier: ^0.30.6
     version: 0.30.6(@types/react@18.2.73)(postgres@3.4.4)(react@18.2.0)
@@ -1343,8 +1343,8 @@ packages:
     resolution: {integrity: sha512-o/dXNFfhBpYHpQFdT6FWzeO7pKc838QeeZ9d91CfVAtpr5XLK4B/zYxQbYgPdoMiTDvJfzcsLW5naXgmHGDNXw==}
     dev: false
 
-  /discord-api-types@0.37.77:
-    resolution: {integrity: sha512-AkEn9nZA5w/XJ8wzKzlpx3X+MToQCowKahftF1+KYnMWnuglCrVRojy1XlIWX8Frgp1v8INceGKpvDkbvMLJ4g==}
+  /discord-api-types@0.37.81:
+    resolution: {integrity: sha512-GNUnmQeIO5S9lSDbH3hFCIbfhSO62BYtXEFVWMUsV2H7Xx/lCZIe53uQcYtfaO8nxO0kcqNkYgohrhqQMGxthg==}
     dev: false
 
   /dlv@1.1.3:
