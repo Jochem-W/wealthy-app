@@ -4,16 +4,9 @@ import camelcaseKeys from "camelcase-keys"
 const model = z
   .object({
     SECRET_KEY: z.string(),
-    CLIENT_ID: z.string(),
-    CLIENT_SECRET: z.string(),
     DISCORD_BOT_TOKEN: z.string(),
     GUILD_ID: z.string(),
     GRACE_PERIOD: z.coerce.number(),
-    NEXT_HOSTNAME: z
-      .string()
-      .optional()
-      .transform((arg) => (arg ? new URL(`https://${arg}`) : null)),
-    INVITEE_ROLE: z.string(),
     DATABASE_URL: z.string(),
   })
   .transform((arg) => camelcaseKeys(arg))
