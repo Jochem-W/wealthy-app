@@ -1,5 +1,5 @@
 # Set-up build image
-FROM node:21-alpine
+FROM node:22-alpine
 ENV NODE_ENV=production
 
 WORKDIR /app

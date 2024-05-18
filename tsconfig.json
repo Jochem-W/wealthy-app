@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "@tsconfig/strictest",
-    "@tsconfig/node21",
-    "@tsconfig/next"
-  ],
+  "extends": ["@tsconfig/strictest", "@tsconfig/node22", "@tsconfig/next"],
   "compilerOptions": {
     "downlevelIteration": true,
     "paths": {
