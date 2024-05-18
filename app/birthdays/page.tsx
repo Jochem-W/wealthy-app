@@ -1,15 +1,10 @@
 import Calendar from "@/components/Calendar"
 import { birthdaysTable } from "@/schema"
 import { Drizzle } from "@/utils/clients"
-import { Discord } from "@/utils/discord"
+import { Discord, getMembers } from "@/utils/discord"
 import { displayName } from "@/utils/discordClient"
 import { Variables } from "@/utils/variables"
-import {
-  APIUser,
-  Routes,
-  RESTGetAPIGuildMembersResult,
-  RESTGetAPIGuildResult,
-} from "discord-api-types/v10"
+import { APIUser, Routes, RESTGetAPIGuildResult } from "discord-api-types/v10"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
 
@@ -26,15 +21,16 @@ export async function generateMetadata(): Promise<Metadata> {
 async function getBirthdays() {
   const users = new Map<string, APIUser>()
 
-  const members = (await Discord.get(Routes.guildMembers(Variables.guildId), {
-    query: new URLSearchParams({ limit: "1000" }),
-  })) as RESTGetAPIGuildMembersResult
-  for (const member of members) {
-    if (!member.user) {
-      continue
+  const members = await getMembers()
+  for (const { member, expectedAccess } of [
+    ...members.invalid,
+    ...members.admin,
+    ...members.invited,
+    ...[...members.subscribed.values()].flat(),
+  ]) {
+    if (expectedAccess) {
+      users.set(member.user.id, member.user)
     }
-
-    users.set(member.user.id, member.user)
   }
 
   const data = await Drizzle.select().from(birthdaysTable)

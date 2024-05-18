@@ -1,13 +1,8 @@
 import { birthdaysTable } from "@/schema"
 import { Drizzle } from "@/utils/clients"
-import { Discord } from "@/utils/discord"
+import { Discord, getMembers } from "@/utils/discord"
 import { Variables } from "@/utils/variables"
-import {
-  APIUser,
-  RESTGetAPIGuildMembersResult,
-  RESTGetAPIGuildResult,
-  Routes,
-} from "discord-api-types/v10"
+import { APIUser, RESTGetAPIGuildResult, Routes } from "discord-api-types/v10"
 import { EventAttributes, createEvents } from "ics"
 import { NextResponse } from "next/server"
 
@@ -20,15 +15,16 @@ export async function GET() {
     Routes.guild(Variables.guildId),
   )) as RESTGetAPIGuildResult
 
-  const members = (await Discord.get(Routes.guildMembers(Variables.guildId), {
-    query: new URLSearchParams({ limit: "1000" }),
-  })) as RESTGetAPIGuildMembersResult
-  for (const member of members) {
-    if (!member.user) {
-      continue
+  const members = await getMembers()
+  for (const { member, expectedAccess } of [
+    ...members.invalid,
+    ...members.admin,
+    ...members.invited,
+    ...[...members.subscribed.values()].flat(),
+  ]) {
+    if (expectedAccess) {
+      users.set(member.user.id, member.user)
     }
-
-    users.set(member.user.id, member.user)
   }
 
   const dates = await Drizzle.select().from(birthdaysTable)
