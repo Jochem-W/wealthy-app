@@ -2,33 +2,13 @@ import { Drizzle } from "@/utils/clients"
 import { Discord, MemberWithUser } from "@/utils/discord"
 import { RESTGetAPIGuildRolesResult, Routes } from "discord-api-types/v10"
 import { Variables } from "@/utils/variables"
-import { DateTime } from "luxon"
 import { getSubject } from "@/utils/token"
-import { MemberComponent } from "@/components/MemberComponent"
 import { expiredMillis } from "@/utils/misc"
 import { inviteesTable, usersTable } from "@/schema"
+import { eq } from "drizzle-orm"
+import { MemberList } from "@/components/MemberList"
 
 type MembersResponse = MemberWithUser[]
-type TierEntry = {
-  member: MemberWithUser
-  user?: typeof usersTable.$inferSelect
-}
-
-async function getMembers() {
-  const apiMembers = (await Discord.get(
-    Routes.guildMembers(Variables.guildId),
-    {
-      query: new URLSearchParams({ limit: "1000" }),
-    },
-  )) as MembersResponse
-
-  const members = new Map<string, MemberWithUser>()
-  for (const member of apiMembers) {
-    members.set(member.user.id, member)
-  }
-
-  return members
-}
 
 async function getAdminRoles() {
   const roles = (await Discord.get(
@@ -39,81 +19,125 @@ async function getAdminRoles() {
   )
 }
 
-function discordUsername(member: MemberWithUser) {
-  if (member.user.discriminator !== "0") {
-    return `${member.user.username}#${member.user.discriminator}`
-  }
-
-  return member.user.username
+function arrayToMap<T, U>(items: T[], keyFn: (item: T) => U) {
+  return new Map(items.map((item) => [keyFn(item), item]))
 }
 
-async function getSubscribers() {
-  const users = await Drizzle.select().from(usersTable)
-  const invitees = await Drizzle.select().from(inviteesTable)
-  const members = await getMembers()
-  const adminRoles = await getAdminRoles()
-  const tiers = new Map<string, TierEntry[]>()
-  const invitedTier = "Invited"
-  const unknownTier = "Unknown"
-  const expiredTier = "Expired"
-  const unsubscribedStaff = "Unsubscribed staff"
+function canAccessDiscord(
+  subscriber?: typeof usersTable.$inferSelect,
+): subscriber is typeof usersTable.$inferSelect {
+  if (!subscriber) {
+    return false
+  }
 
-  tiers.set(unknownTier, [])
-  tiers.set(expiredTier, [])
-  tiers.set(invitedTier, [])
-  tiers.set(unsubscribedStaff, [])
+  return (
+    expiredMillis(subscriber) > 0 &&
+    Variables.discordTiers.includes(subscriber.lastPaymentTier)
+  )
+}
+
+function canInvite(
+  subscriber?: typeof usersTable.$inferSelect,
+): subscriber is typeof usersTable.$inferSelect {
+  if (!canAccessDiscord(subscriber)) {
+    return false
+  }
+
+  return (
+    expiredMillis(subscriber) > 0 &&
+    Variables.inviteTiers.includes(subscriber.lastPaymentTier)
+  )
+}
+
+function hasDiscordAccess(member: MemberWithUser) {
+  return !member.roles.includes(Variables.unsubcribedRole)
+}
+
+type AugmentedMember = {
+  member: MemberWithUser
+  access: boolean
+  expectedAccess: boolean
+  subscriber?: typeof usersTable.$inferSelect
+}
+
+async function getMembers() {
+  const subscribers = arrayToMap(
+    await Drizzle.select().from(usersTable),
+    (user) => user.discordId,
+  )
+  const invitees = arrayToMap(
+    await Drizzle.select()
+      .from(inviteesTable)
+      .innerJoin(usersTable, eq(inviteesTable.userId, usersTable.id)),
+    ({ invitee }) => invitee.discordId,
+  )
+  const members = arrayToMap(
+    (await Discord.get(Routes.guildMembers(Variables.guildId), {
+      query: new URLSearchParams({ limit: "1000" }),
+    })) as MembersResponse,
+    (member) => member.user.id,
+  )
+
+  const data = {
+    invalid: [] as AugmentedMember[],
+    admin: [] as AugmentedMember[],
+    invited: [] as AugmentedMember[],
+    subscribed: new Map<string, AugmentedMember[]>(),
+  }
+
+  const adminRoles = await getAdminRoles()
 
   for (const member of members.values()) {
     if (member.user.bot) {
       continue
     }
 
-    const invitee = invitees.find((i) => i.discordId === member.user.id)
-    const user = users.find((u) => u.discordId === member.user.id)
-    if (!user) {
-      if (invitee) {
-        tiers.get(invitedTier)?.push({ member })
-        continue
-      }
-
-      if (adminRoles.some((role) => member.roles.includes(role.id))) {
-        tiers.get(unsubscribedStaff)?.push({ member })
-        continue
-      }
-
-      tiers.get(unknownTier)?.push({ member })
+    if (adminRoles.some((role) => member.roles.includes(role.id))) {
+      data.admin.push({
+        member,
+        access: hasDiscordAccess(member),
+        expectedAccess: true,
+      })
       continue
     }
 
-    if (expiredMillis(user) < 0) {
-      if (invitee) {
-        tiers.get(invitedTier)?.push({ member })
+    const subscriber = subscribers.get(member.user.id)
+    if (canAccessDiscord(subscriber)) {
+      {
+        let array = data.subscribed.get(subscriber.lastPaymentTier)
+        if (!array) {
+          array = []
+          data.subscribed.set(subscriber.lastPaymentTier, array)
+        }
+
+        array.push({
+          member,
+          access: hasDiscordAccess(member),
+          subscriber,
+          expectedAccess: true,
+        })
         continue
       }
-
-      tiers.get(expiredTier)?.push({ member, user })
     }
 
-    if (!tiers.get(user.lastPaymentTier)) {
-      tiers.set(user.lastPaymentTier, [])
+    const invitee = invitees.get(member.user.id)
+    if (invitee) {
+      data.invited.push({
+        member,
+        access: hasDiscordAccess(member),
+        expectedAccess: canInvite(invitee?.user),
+      })
+      continue
     }
 
-    tiers.get(user.lastPaymentTier)?.push({ member, user })
-  }
-
-  for (const value of tiers.values()) {
-    value.sort((a, b) => {
-      if (a.user && b.user) {
-        return DateTime.fromJSDate(a.user.lastPaymentTimestamp)
-          .diff(DateTime.fromJSDate(b.user.lastPaymentTimestamp))
-          .toMillis()
-      }
-
-      return discordUsername(a.member).localeCompare(discordUsername(b.member))
+    data.invalid.push({
+      member,
+      access: hasDiscordAccess(member),
+      expectedAccess: false,
     })
   }
 
-  return tiers
+  return data
 }
 
 export default async function Page({
@@ -131,7 +155,7 @@ export default async function Page({
     )
   }
 
-  const subscribers = await getSubscribers()
+  const members = await getMembers()
 
   return (
     <>
@@ -139,32 +163,12 @@ export default async function Page({
         <h1 className="text-5xl">Discord Members</h1>
       </header>
       <main className="container flex flex-col gap-8">
-        {[...subscribers.entries()]
-          .filter(([, values]) => values.length > 0)
-          .map(([key, values]) => (
-            <div className={"flex flex-col gap-2"} key={key}>
-              <h2 className={"text-3xl"}>{key}</h2>
-              <div
-                className={
-                  "grid grid-cols-[repeat(auto-fill,_minmax(min(350px,_100%),_1fr))] gap-2"
-                }
-              >
-                {values.map(({ member, user }) => (
-                  <div className="flex flex-col gap-2" key={member.user.id}>
-                    <div className={"h-0.5 bg-neutral-500 bg-opacity-30"}></div>
-                    {user ? (
-                      <MemberComponent
-                        member={member}
-                        user={user}
-                      ></MemberComponent>
-                    ) : (
-                      <MemberComponent member={member}></MemberComponent>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+        <MemberList data={members.invalid} title="No access"></MemberList>
+        <MemberList data={members.admin} title="Admin"></MemberList>
+        <MemberList data={members.invited} title="Invited"></MemberList>
+        {[...members.subscribed.entries()].map(([title, data]) => (
+          <MemberList data={data} title={title} key={title}></MemberList>
+        ))}
       </main>
     </>
   )

@@ -1,5 +1,4 @@
 import { MemberWithUser } from "@/utils/discord"
-import { expiredMillis } from "@/utils/misc"
 import { DateTime } from "luxon"
 import Image from "next/image"
 import { DiscordUsername } from "@/components/DiscordUsername"
@@ -8,22 +7,21 @@ import { JetBrains_Mono } from "next/font/google"
 import { usersTable } from "@/schema"
 import { displayAvatarUrl } from "@/utils/discordClient"
 
-export type TierEntry = {
-  member: MemberWithUser
-  user?: typeof usersTable.$inferSelect
-}
-
 const mono = JetBrains_Mono({ subsets: ["latin"], weight: "variable" })
 
 export const MemberComponent = ({
   member,
-  user = undefined,
+  access,
+  expectedAccess,
+  user,
 }: {
-  readonly member: MemberWithUser
-  readonly user?: typeof usersTable.$inferSelect
+  member: MemberWithUser
+  access: boolean
+  expectedAccess: boolean
+  user?: typeof usersTable.$inferSelect
 }) => {
   let bg = ""
-  if (user && expiredMillis(user) < 0) {
+  if (access !== expectedAccess) {
     bg = "bg-red-500 bg-opacity-25"
   }
 

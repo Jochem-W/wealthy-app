@@ -8,6 +8,13 @@ const model = z
     GUILD_ID: z.string(),
     GRACE_PERIOD: z.coerce.number(),
     DATABASE_URL: z.string(),
+    INVITE_TIERS: z
+      .string()
+      .transform((arg) => JSON.parse(arg.replaceAll("'", '"')) as string[]),
+    DISCORD_TIERS: z
+      .string()
+      .transform((arg) => JSON.parse(arg.replaceAll("'", '"')) as string[]),
+    UNSUBCRIBED_ROLE: z.string(),
   })
   .transform((arg) => camelcaseKeys(arg))
 
