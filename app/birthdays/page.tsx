@@ -21,16 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
 async function getBirthdays() {
   const users = new Map<string, APIUser>()
 
-  const members = await getMembers()
-  for (const { member, expectedAccess } of [
-    ...members.invalid,
-    ...members.admin,
-    ...members.invited,
-    ...[...members.subscribed.values()].flat(),
-  ]) {
-    if (expectedAccess) {
-      users.set(member.user.id, member.user)
-    }
+  for (const member of await getMembers()) {
+    users.set(member.user.id, member.user)
   }
 
   const data = await Drizzle.select().from(birthdaysTable)

@@ -9,22 +9,14 @@ import { NextResponse } from "next/server"
 export const revalidate = 3600
 
 export async function GET() {
-  const users = new Map<string, APIUser>()
-
   const guild = (await Discord.get(
     Routes.guild(Variables.guildId),
   )) as RESTGetAPIGuildResult
 
-  const members = await getMembers()
-  for (const { member, expectedAccess } of [
-    ...members.invalid,
-    ...members.admin,
-    ...members.invited,
-    ...[...members.subscribed.values()].flat(),
-  ]) {
-    if (expectedAccess) {
-      users.set(member.user.id, member.user)
-    }
+  const users = new Map<string, APIUser>()
+
+  for (const member of await getMembers()) {
+    users.set(member.user.id, member.user)
   }
 
   const dates = await Drizzle.select().from(birthdaysTable)

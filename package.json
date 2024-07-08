@@ -10,18 +10,15 @@
   },
   "dependencies": {
     "@discordjs/rest": "^2.3.0",
-    "@types/chance": "^1.1.6",
     "camelcase-keys": "^9.1.3",
-    "chance": "^1.1.11",
     "discord-api-types": "^0.37.92",
     "drizzle-orm": "^0.31.2",
     "ics": "^3.7.6",
-    "jose": "^5.6.3",
     "luxon": "^3.4.4",
-    "next": "14.2.4",
+    "next": "^14.2.4",
     "postgres": "^3.4.4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -29,27 +26,22 @@
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/luxon": "^3.4.2",
-    "@types/node": "20.14.10",
-    "@types/react": "18.3.3",
-    "@types/react-dom": "18.3.0",
+    "@types/node": "^20.14.10",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.15.0",
     "@typescript-eslint/parser": "^7.15.0",
-    "autoprefixer": "10.4.19",
-    "eslint": "8.57.0",
-    "eslint-config-next": "14.2.4",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.34.3",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "postcss": "8.4.39",
+    "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "tailwindcss": "3.4.4",
-    "typescript": "5.5.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "undici": "~6.6.0"
-    }
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.3"
   },
   "prettier": {
     "semi": false,
